@@ -11,7 +11,7 @@ Activated linux:
 
 Win:
     
-    $ .\venv\scripts\activate
+    > .\venv\scripts\activate
     
 3.Install the project dependencies, which are listed in requirements.txt.
     
