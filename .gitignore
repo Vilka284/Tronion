@@ -1,8 +1,12 @@
 .idea
 *.iml
 out
+gengit
 gen
 venv
 __pycash__
 *.pyc
+<<<<<<< HEAD
 .vscode/settings.json
+=======
+>>>>>>> 20882ea82b75ee16ea0764604b369f2435c43f14
