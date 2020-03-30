@@ -2,8 +2,14 @@ from flask import Flask, render_template
 from config import Config
 from os import path, getcwd
 
+
 # setting up app name and templates directory
-app = Flask(__name__, template_folder= path.abspath(getcwd()) + '/client/templates')
+TEMPLATE_DIR = path.abspath(getcwd()) + '/client/templates'
+STATIC_DIR = path.abspath(getcwd()) + '/client/static/'
+
+app = Flask(__name__,
+            template_folder=TEMPLATE_DIR,
+            static_folder=STATIC_DIR)
 
 def create_app():
 
@@ -14,5 +20,6 @@ def create_app():
 
     # reg blueprints
     app.register_blueprint(user_auth)
+    from client import views
     return app
 
