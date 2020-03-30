@@ -1,6 +1,7 @@
 .idea
 *.iml
 out
+gengit
 gen
 venv
 __pycash__
