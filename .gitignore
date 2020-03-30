@@ -6,3 +6,5 @@ gen
 venv
 __pycash__
 *.pyc
+.vscode/settings.json
+
