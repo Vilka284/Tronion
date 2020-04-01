@@ -9,3 +9,8 @@ def index():
 @app.route('/join')
 def join():
     return render_template('join/join.html')
+
+@app.route('/registration')
+def registration():
+    return render_template('registration/registration.html')
+
