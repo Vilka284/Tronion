@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" meta name="viewport" content="width=430, initial-scale=1">
+    <title>Join room</title>
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/registration.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="topnav">
+            <a href="/">Tronion</a>
+            <a href="#manage">Manage room</a>
+            <a class="active" href="registration">Join room</a>
+            <a href="#profile">Edit profile</a>
+        </div>
+    </div>
+    <div class="welcome-registr">
+        <p>Welcome to Tronion</p>
+    </div>
+    <form action="">
+        <div class="reg">
+            <div class="group">
+                <label for="">Enter Username</label>
+                <input type="text" name="username" placeholder="Username">
+            </div>
+            <div class="group">
+                <label for="">Enter Email</label>
+                <input type="text" name="email" placeholder="Email">
+            </div>
+            <div class="group">
+                <label for="">Enter your firstname</label>
+                <input type="text" name="firstname" placeholder="First name">
+            </div>
+            <div class="group">
+                <label for="">Enter your lastname</label>
+                <input type="text" name="lastname" placeholder="Last name">
+            </div>
+            <div class="group">
+                <label for="">Create password</label>
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <div class="group">
+                <label for="">Confirm your password</label>
+                <input type="password" name="RepeatPassword" placeholder="Confirm password">
+            </div>
+            <div class="reg-help">
+                <div class="already-have-acc">
+                    <p>Already have an account?</p>
+                    <a href="#sign-in">Sign-in</a>
+                </div>
+                <div class="forgot-pass">
+                    <p>Forgot password?</p>
+                    <a href="#sign-in">Reset now</a>
+                </div>
+            </div>
+            <div class="reg-submit">
+                <button type="submit">Sign-up</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
