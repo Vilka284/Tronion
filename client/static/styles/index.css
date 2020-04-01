@@ -21,26 +21,34 @@ html, body {
 }
 
 .topnav a.tronion {
+  font-family: Arial;
+  font-weight: bold;
+  display:inline;
   float: left;
   color: #f2f2f2;
   text-align: center;
   padding: 4px 6px;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 3vh;
 }
 
 .topnav a {
+  font-family: Arial;
+  display: inline;
   float: right;
   color: #f2f2f2;
   text-align: center;
   padding: 4px 6px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 2.5vh;
 }
 
-.topnav a.img { 
-  display: inline; 
+
+.topnav img {
+  display: inline-block;
   white-space:nowrap;
+  width: 4vh;
+  height: 4vh;
 }
 
 .topnav a.button:hover {
@@ -60,13 +68,33 @@ html, body {
   background-size: cover;
 }
 
+h3 {
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+  top: 1%;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: #3A506B;
+  font-family: Coda;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 2vh;
+  line-height: 140px;
+  align-items: center;
+  text-align: center;
+
+  color: #3A506B;
+
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .join_button {
   position: relative;
   background-color: #5BC0BE;
   border: none;
   width: 190px;
   height: 74px;
-  top: 14%;
+  top: 12%;
   color: #ffffff;
   padding: 20px;
   font-family: Coda;
@@ -88,36 +116,14 @@ html, body {
   font-family: Coda;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.5em;
-  line-height: 51px;
+  font-size: 2.5vh;
+  line-height: 30px;
   text-align: center;
   letter-spacing: 0.05em;
   background: #3A506B;
   border-radius: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-h3 {
-  position: relative;
-  margin: 0 auto;
-  top: 1%;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #3A506B;
-  font-family: Coda;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 140px;
-
-
-  display: center;
-  align-items: center;
-  text-align: center;
-
-  color: #3A506B;
-
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .arrow{

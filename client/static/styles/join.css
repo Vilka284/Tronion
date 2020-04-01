@@ -23,26 +23,34 @@ html, body {
 }
 
 .topnav a.tronion {
+  font-family: Arial;
+  font-weight: bold;
+  display:inline;
   float: left;
   color: #f2f2f2;
   text-align: center;
   padding: 4px 6px;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 3vh;
 }
 
 .topnav a {
+  font-family: Arial;
+  display: inline;
   float: right;
   color: #f2f2f2;
   text-align: center;
   padding: 4px 6px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 2.5vh;
 }
 
-.topnav a.img { 
-  display: inline; 
+
+.topnav img {
+  display: inline-block;
   white-space:nowrap;
+  width: 4vh;
+  height: 4vh;
 }
 
 .topnav a.button:hover {
