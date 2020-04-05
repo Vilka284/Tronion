@@ -10,7 +10,9 @@ html, body {
 * {
   box-sizing: border-box;
 }
-
+a{
+  text-decoration: none;
+}
 
 /* navigation bar */
 .topnav {
@@ -56,4 +58,88 @@ html, body {
 .topnav a.button:hover {
   background-color: #ddd;
   color: black;
+}
+
+form{
+  display: grid;
+}
+
+.wrapper{
+  margin: auto;
+  margin-top: 6%;
+}
+.welcome{
+  text-align: center;
+  font-weight: bold;
+  font-size: 35px;
+  margin-bottom: 60px;
+}
+.group{
+  margin-top: 25px;
+}
+
+.group input{
+  height: 43px;
+  width: 330px;
+  border-radius: 10px;
+  border: 1px solid grey;
+  padding-left: 10px;
+  outline: 0;
+  font-size: 20px;
+}
+.group input::placeholder{
+  opacity: 0.8;
+}
+.group input:focus{
+  border: 1px solid black;
+  box-shadow: 0px 0px 5px 0 blue;
+}
+.wrapper button{
+  margin: auto;
+  cursor: pointer;
+  height: 40px;
+  width: 100px;
+  font-size: 16px;
+  background: rgba(57, 114, 133, 0.23);
+  border: none;
+  outline: 0;
+  float: right;
+  margin-top: 25px;
+}
+.wrapper button:hover{
+  transform:scale(1.03);
+}
+.no-account {
+  text-align: center;
+  margin-top: 25px;
+}
+.no-account p{
+  display: inline-block;
+  margin: 0;
+}
+.no-account a:hover{
+  color: red;
+}
+.restore-pass{
+  text-align: center;
+}
+.restore-pass a:hover{
+  color:red;
+}
+.restore-pass p{
+  display: inline-block;
+  margin: 0;
+}
+
+.class-for-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (max-width: 430px){
+  .group input{
+    height: 35px;
+    width: 240px;
+    font-size: 16px;
+  }
 }
