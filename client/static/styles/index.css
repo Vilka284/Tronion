@@ -235,6 +235,14 @@ h3 {
     background: #C4C4C4;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 21px;
+
+    line-height: 30px;
+    color: #ffffff;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
 }
 
 .container2 {
@@ -245,6 +253,14 @@ h3 {
     background: #C4C4C4;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 21px;
+
+    line-height: 30px;
+    color: #ffffff;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
 }
 
 .container3 {
@@ -255,6 +271,14 @@ h3 {
     background: #C4C4C4;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 21px;
+
+    line-height: 30px;
+    color: #ffffff;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
 }
 
 @media screen and (max-width: 900px) {
@@ -269,12 +293,20 @@ h3 {
         margin: auto;
         left: 3%;
         right: 3%;
-        top: 47em;
+        top: 750px;
         width: 94%;
         height: 500px;
         background: #C4C4C4;
         box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 21px;
+
+        line-height: 30px;
+        color: #ffffff;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
     }
 
     .container2 {
@@ -283,12 +315,20 @@ h3 {
         margin: auto;
         left: 3%;
         right: 3%;
-        top: 79em;
+        top: 1270px;
         width: 94%;
         height: 500px;
         background: #C4C4C4;
         box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 21px;
+
+        line-height: 30px;
+        color: #ffffff;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
     }
 
     .container3 {
@@ -297,21 +337,19 @@ h3 {
         margin: auto;
         left: 3%;
         right: 3%;
-        top: 111em;
+        top: 1790px;
         width: 94%;
         height: 500px;
         background: #C4C4C4;
         box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 21px;
+
+        line-height: 30px;
+        color: #ffffff;
+    font-family: Coda;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
     }
-}
-
-
-.footer {
-    height: 70px;
-    bottom: 0;
-    width: 100%;
-    background-color: #3A506B;
-  color: white;
-  text-align: center;
 }
