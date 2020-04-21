@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from config import Config
 from os import path, getcwd
+from db import Databse
 
 
 # setting up app name and templates directory
@@ -11,15 +12,21 @@ app = Flask(__name__,
             template_folder=TEMPLATE_DIR,
             static_folder=STATIC_DIR)
 
+# connect to database
+db = Databse()
+db.connection()
+
+
+
 def create_app():
 
     # load config
     app.config.from_object(Config)
 
-    from server.user_auth.urls import user_auth
+    from server.user_api.endpoints import user_api
 
     # reg blueprints
-    app.register_blueprint(user_auth)
+    app.register_blueprint(user_api)
     from client import views
     return app
 
