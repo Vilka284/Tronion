@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" name="viewport" content="width=430, initial-scale=1">
     <title>Join room</title>
     <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/registration.css') }}">
 </head>
+
 <body>
     <div class="topnav" id="header">
-		<a class="tronion" href="/">
-			<span>
-					Tronion
-			</span>
-		</a>
-		<img src="img/onion.png" title="Thinking onion" align="left">
-		<a class="button" href="#register">
-			<span>Sign up</span>
-		</a>
+        <a class="tronion" href="/">
+            <span>
+                Tronion
+            </span>
+        </a>
+        <img src="img/onion.png" title="Thinking onion" align="left">
+        <a class="button" href="#register">
+            <span>Sign up</span>
+        </a>
         <span style="font-family: Arial;
                         display: inline-block;
                         float: right;
@@ -27,37 +29,37 @@
                         font-size: 2vh;">
             or
         </span>
-		<a class="button" href="#login">
-			<span >Sign in</span>
-		</a>
-	</div>
+        <a class="button" href="#login">
+            <span>Sign in</span>
+        </a>
+    </div>
     <div class="wrapper">
 
     </div>
     <div class="welcome-registr">
         <p>Welcome to Tronion</p>
     </div>
-    <form action="">
+    <form id="reg-form">
         <div class="reg">
             <div class="group">
                 <label for="">Enter Username</label>
-                <input type="text" name="username" placeholder="Username">
+                <input type="text" name="username" placeholder="Username" id="username">
             </div>
             <div class="group">
                 <label for="">Enter Email</label>
-                <input type="text" name="email" placeholder="Email">
+                <input type="text" name="email" placeholder="Email" id="email">
             </div>
             <div class="group">
                 <label for="">Enter your firstname</label>
-                <input type="text" name="firstname" placeholder="First name">
+                <input type="text" name="firstname" placeholder="First name" id="first_name">
             </div>
             <div class="group">
                 <label for="">Enter your lastname</label>
-                <input type="text" name="lastname" placeholder="Last name">
+                <input type="text" name="lastname" placeholder="Last name" id="last_name">
             </div>
             <div class="group">
                 <label for="">Create password</label>
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Password" id="password">
             </div>
             <div class="group">
                 <label for="">Confirm your password</label>
@@ -79,4 +81,70 @@
         </div>
     </form>
 </body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+
+<!-- <script type="text/javascript">
+    $(document).on('submit', '#reg-form', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '/user',
+            data: {
+                name: $('#username').val(),
+                password: $('#password').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken').val()
+            },
+            success: function () {
+                alert("Created New User!")
+            }
+        });
+
+    });
+</script> -->
+
+<script type="text/javascript">
+    $(document).on('submit', '#reg-form', function (e) {
+        e.preventDefault();
+        csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+        //формуємо js обєкт info витягуючи з полів значення
+        info = {
+            //username: 'danylo567222222',
+            //email: 'danylo51202@gmail.com',
+            //password: '123',
+            //repeated_password: '123',
+            //username: $('#username').val(),
+            first_name: $('#first_name').val(),
+            last_name: $('#last_name').val(),
+            email: $('#email').val(),
+            password: $('#password').val(),
+
+        }
+        // if any errors, it can be here because я скопіпастив той код єбу як працює але то то шо треба(ajaxSetup).
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken",
+                        csrfmiddlewaretoken)
+                }
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: '/register',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(info),
+
+            success: function () {
+                alert("Create new user");
+            }
+
+        });
+    });
+</script>
+
+
+
 </html>

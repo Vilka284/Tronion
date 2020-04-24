@@ -3,6 +3,7 @@ from flask import jsonify
 from flask import Blueprint
 from jsonschema import exceptions
 from jsonschema import validate
+from flask import render_template
 
 from server.app import db
 from .schemas import *
@@ -33,13 +34,17 @@ def user_object(user, password=False):
     return user_obj
 
 
+
+
+
 @user_api.route("/register", methods=["POST"])
 def create():
     """
     Create user function
     """
 
-    data = request.json["properties"]
+    data = request.json
+    print(data)
 
     # validation of the received data
     if not validate_json(create_schema, data):
@@ -69,7 +74,7 @@ def create():
     response = {
         "result": "ok"
     }
-    return jsonify(response), 400
+    return jsonify(response), 200
 
 
 @user_api.route("/login", methods=["GET"])
@@ -103,7 +108,4 @@ def login():
         "user": user_object(user),
     }
     return jsonify(response), 200
-
-
-
 
