@@ -18,3 +18,5 @@ room_api = Blueprint("room_api", __name__)
 @room_api.route("/create-room", methods=["POST"])
 def create_room():
     return jsonify({"resp": "hi!"})
+
+

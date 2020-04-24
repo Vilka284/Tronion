@@ -56,4 +56,3 @@ class Databse:
             cur.execute(query)
             cur.close()
 
-            # self.conn.close()
