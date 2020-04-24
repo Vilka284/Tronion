@@ -30,6 +30,9 @@ def create_app():
     app.register_blueprint(user_api)
     app.register_blueprint(room_api)
 
-    from client import views
+    from server import routes
+    # reg blueprints
+    app.register_blueprint(user_api)
+
     return app
 

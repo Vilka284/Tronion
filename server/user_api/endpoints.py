@@ -4,8 +4,9 @@ from flask import jsonify
 from flask import Blueprint
 from jsonschema import exceptions
 from jsonschema import validate
+from flask import render_template
 
-from server.app import db
+from server.app import app, db
 from .schemas import *
 
 import hashlib
@@ -34,13 +35,17 @@ def user_object(user, password=False):
     return user_obj
 
 
+
+
+
 @user_api.route("/register", methods=["POST"])
 def create():
     """
     Create user function
     """
 
-    data = request.json["properties"]
+    data = request.json
+    print(data)
 
     # validation of the received data
     if not validate_json(create_schema, data):
@@ -106,6 +111,43 @@ def login():
     }
     return jsonify(response), 200
 
+
+@user_api.route('/create_room', methods=["POST"])
+def create_room():
+
+    def rand_code():
+        from random import randrange
+        return str(randrange(10000, 99999))
+
+    def check():
+        code = rand_code()
+        temp = db.select_rows(
+            f"select * from room where id_room like {code}"
+        )
+        if temp is not None:
+            check()
+        else:
+            return code
+
+    data = request.json
+    print(data)
+    code = check()
+    print(code)
+
+    db.insert_data(
+        f"""
+            insert into room (id_room, name_room, note) values (
+                   '{code}', 
+                   '{data["name"]}', 
+                   '{data["description"]}'
+               )"""
+        )
+    db.commit()
+
+    response = {
+        "result": "ok"
+    }
+    return jsonify(response), 200
 
 
 
