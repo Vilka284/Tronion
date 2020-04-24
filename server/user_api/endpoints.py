@@ -1,3 +1,4 @@
+from flask import session
 from flask import request
 from flask import jsonify
 from flask import Blueprint
@@ -69,7 +70,7 @@ def create():
     response = {
         "result": "ok"
     }
-    return jsonify(response), 400
+    return jsonify(response), 200
 
 
 @user_api.route("/login", methods=["GET"])
@@ -97,6 +98,7 @@ def login():
         return jsonify(
             {"error": "Incorrect password"}
         ), 400
+
 
     response = {
         "result": "ok",

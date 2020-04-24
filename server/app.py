@@ -24,9 +24,12 @@ def create_app():
     app.config.from_object(Config)
 
     from server.user_api.endpoints import user_api
+    from server.room_api.endpoints import room_api
 
     # reg blueprints
     app.register_blueprint(user_api)
+    app.register_blueprint(room_api)
+
     from client import views
     return app
 
