@@ -24,9 +24,9 @@ def create_app():
     app.config.from_object(Config)
 
     from server.user_api.endpoints import user_api
-
+    from server import routes
     # reg blueprints
     app.register_blueprint(user_api)
-    from client import views
+
     return app
 

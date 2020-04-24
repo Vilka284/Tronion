@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tronion</title>
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="styles/join.css">
+</head>
+<body>
+	<div class="topnav" id="header">
+        <a class="tronion" href="/">
+            <span>
+                Tronion
+            </span>
+        </a>
+        <img src="img/onion.png" title="Thinking onion" align="left">
+        <a class="button" href="/register">
+            <span>Sign up</span>
+        </a>
+        <span style="font-family: Arial;
+                        display: inline-block;
+                        float: right;
+                        color: #f2f2f2;
+                        text-align: center;
+                        padding: 4px 6px;
+                        text-decoration: none;
+                        font-size: 2vh;">
+            or
+        </span>
+        <a class="button" href="/login">
+            <span>Sign in</span>
+        </a>
+    </div>
+
+	<script type="text/javascript">
+		window.onscroll = function() {myFunction()};
+		var header = document.getElementById("header");
+		var sticky = header.offsetTop;
+		function myFunction() {
+			if (window.pageYOffset > sticky) {
+				header.classList.add("sticky");
+			} else {
+				header.classList.remove("sticky");
+			}
+		}
+	</script>
+
+	<form action="">
+		<div class="wrapper">
+			<p class="welcome">Welcome!</p>
+			<div class="group">
+				<input type="text" name="username" placeholder="Username or Email">
+			</div>
+			<div class="group">
+				<input type="password" name="password" placeholder="Password">
+			</div>
+			<div class="class-for-grid">
+				<button type="submit">Login</button>
+					<div class="no-account">
+						<p>Have no account?</p>
+						<a href="#">Registration</a>
+					</div>
+					<div class="restore-pass">
+						<p>Forgot password</p>
+						<a href="#">Restore</a>
+					</div>
+				
+			</div>
+			
+		</div>
+	</form>
+
+
+
+	
+</body>
+</html>

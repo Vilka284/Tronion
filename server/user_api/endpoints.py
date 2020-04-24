@@ -5,7 +5,7 @@ from jsonschema import exceptions
 from jsonschema import validate
 from flask import render_template
 
-from server.app import db
+from server.app import app, db
 from .schemas import *
 
 import hashlib
@@ -108,4 +108,44 @@ def login():
         "user": user_object(user),
     }
     return jsonify(response), 200
+
+
+@user_api.route('/create_room', methods=["POST"])
+def create_room():
+
+    def rand_code():
+        from random import randrange
+        return str(randrange(10000, 99999))
+
+    def check():
+        code = rand_code()
+        temp = db.select_rows(
+            f"select * from room where id_room like {code}"
+        )
+        if temp is not None:
+            check()
+        else:
+            return code
+
+    data = request.json
+    print(data)
+    code = check()
+    print(code)
+
+    db.insert_data(
+        f"""
+            insert into room (id_room, name_room, note) values (
+                   '{code}', 
+                   '{data["name"]}', 
+                   '{data["description"]}'
+               )"""
+        )
+    db.commit()
+
+    response = {
+        "result": "ok"
+    }
+    return jsonify(response), 200
+
+
 
