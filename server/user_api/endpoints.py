@@ -1,3 +1,4 @@
+from flask import session
 from flask import request
 from flask import jsonify
 from flask import Blueprint
@@ -102,6 +103,7 @@ def login():
         return jsonify(
             {"error": "Incorrect password"}
         ), 400
+
 
     response = {
         "result": "ok",
