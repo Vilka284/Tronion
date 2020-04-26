@@ -4,8 +4,8 @@ from flask import Blueprint
 from jsonschema import exceptions
 from jsonschema import validate
 
-from server.app import app, db
-from server.auth_jwt import *
+from server.app import db
+from server.auth_jwt import Auth
 from .schemas import *
 
 import hashlib
@@ -23,15 +23,13 @@ def validate_json(schema, data):
     return True
 
 
-def user_object(user, password=False):
+def user_object(user):
     user_obj = {
         "id_user":      user[0],
         "first_name":   user[1],
         "last_name":    user[2],
         "email":        user[3],
     }
-    if password:
-        user_obj["password"] = user[4]
     return user_obj
 
 
@@ -77,13 +75,14 @@ def create():
     return jsonify(response), 200
 
 
-@user_api.route("/login", methods=["GET"])
+@user_api.route("/login_user", methods=["POST"])
 def login():
     """
     Login user function
     """
     print(request.data)
     data = request.json
+    print(data)
     # validation of the received data
     if not validate_json(login_schema, data):
         return jsonify({"error": "Data is invalid"}), 400
@@ -109,6 +108,7 @@ def login():
         "user": user_object(user),
         "token": token,
     }
+
     return jsonify(response), 200
 
 

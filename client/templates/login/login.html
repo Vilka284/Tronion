@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tronion</title>
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="styles/join.css">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tronion</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="styles/join.css">
 </head>
 <body>
-	<div class="topnav" id="header">
-        <a class="tronion" href="/">
+<div class="topnav" id="header">
+    <a class="tronion" href="/">
             <span>
                 Tronion
             </span>
-        </a>
-        <img src="img/onion.png" title="Thinking onion" align="left">
-        <a class="button" href="/register">
-            <span>Sign up</span>
-        </a>
-        <span style="font-family: Arial;
+    </a>
+    <img src="img/onion.png" title="Thinking onion" align="left">
+    <a class="button" href="/register">
+        <span>Sign up</span>
+    </a>
+    <span style="font-family: Arial;
                         display: inline-block;
                         float: right;
                         color: #f2f2f2;
@@ -27,51 +27,103 @@
                         font-size: 2vh;">
             or
         </span>
-        <a class="button" href="/login">
-            <span>Sign in</span>
-        </a>
+    <a class="button" href="/login">
+        <span>Sign in</span>
+    </a>
+</div>
+
+<script type="text/javascript">
+    window.onscroll = function () {
+        myFunction()
+    };
+    var header = document.getElementById("header");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
+    }
+</script>
+
+<form id="login-form">
+    <div class="wrapper">
+        <p class="welcome">Welcome!</p>
+        <div id="msg"></div>
+        <div class="group">
+            <input type="text" name="username" placeholder="Email" id="email">
+        </div>
+        <div class="group">
+            <input type="password" name="password" placeholder="Password" id="password">
+        </div>
+        <div class="class-for-grid">
+            <div class="reg-submit">
+                <button type="submit">Login</button>
+            </div>
+            <div class="no-account">
+                <p>Have no account?</p>
+                <a href="/register">Registration</a>
+            </div>
+            <div class="restore-pass">
+                <p>Forgot password</p>
+                <a href="#">Restore</a>
+            </div>
+
+        </div>
+
     </div>
+</form>
 
-	<script type="text/javascript">
-		window.onscroll = function() {myFunction()};
-		var header = document.getElementById("header");
-		var sticky = header.offsetTop;
-		function myFunction() {
-			if (window.pageYOffset > sticky) {
-				header.classList.add("sticky");
-			} else {
-				header.classList.remove("sticky");
-			}
-		}
-	</script>
-
-	<form action="">
-		<div class="wrapper">
-			<p class="welcome">Welcome!</p>
-			<div class="group">
-				<input type="text" name="username" placeholder="Username or Email">
-			</div>
-			<div class="group">
-				<input type="password" name="password" placeholder="Password">
-			</div>
-			<div class="class-for-grid">
-				<button type="submit">Login</button>
-					<div class="no-account">
-						<p>Have no account?</p>
-						<a href="#">Registration</a>
-					</div>
-					<div class="restore-pass">
-						<p>Forgot password</p>
-						<a href="#">Restore</a>
-					</div>
-				
-			</div>
-			
-		</div>
-	</form>
-
-
-
-	
 </body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+
+    $(document).on('submit', '#login-form', function (e) {
+        e.preventDefault();
+
+        var email = $('#email').val();
+        var pswd = $('#password').val();
+
+        if (email != "" && pswd != "") {
+            $.ajax({
+                method: "POST",
+                url: '/login_user',
+                contentType: 'application/json; charset=UTF-8',
+                data: JSON.stringify({'email': email, 'password': pswd}),
+                dataType: "json",
+                success: function (data) {
+                    //Set token to current user
+                    localStorage.setItem('auth_token', data.token);
+                    alert(data.token);
+                    //Say hi!
+                    var user_name = data.user.first_name;
+                    var html = `<span style="color: green;">Hello, ${user_name} </br> In a few seconds you
+                                    will be redirected to the main page</span> `;
+                    $('#msg').html(html);
+                    //Redirect to main page
+                    var timeout = 100;
+                    setTimeout(function redirect() {location.replace('/')}, timeout);
+                },
+                statusCode: {
+                    400: function () {
+                        $('#msg').html('<span style="color: red;">Bad request - invalid credentials</span>');
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        } else {
+            $('#msg').html('<span style="color: red;">All fields are required</span>');
+        }
+    });
+
+
+</script>
+
 </html>

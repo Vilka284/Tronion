@@ -40,6 +40,11 @@ def create_room():
     """
 
     data = request.json
+<<<<<<< HEAD
+=======
+    print(request.headers)
+
+>>>>>>> 63630aaddbdc9458d12b2da29d25ff657ccf7d21
     # validation of the received data
     if not validate_json(data, room_create_schema):
         return jsonify({"error": "Data is invalid"}), 400
@@ -50,8 +55,8 @@ def create_room():
         f"""
             insert into room (id_room, name_room, note) values (
                    '{code}', 
-                   '{data["name"]}', 
-                   '{data["description"]}'
+                   '{data['name']}', 
+                   '{data['description']}'
                )"""
         )
     db.commit()
@@ -61,11 +66,17 @@ def create_room():
     }
     return jsonify(response), 200
 
+@room_api.route('/update_info', methods=["GET", "POST"])
+def update_info():
+    return jsonify({"message": "its work!"})
 
 @room_api.route("/test", methods=["GET"])
 @Auth.login_required
 def test():
     return jsonify({"message": "its work!"})
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 63630aaddbdc9458d12b2da29d25ff657ccf7d21

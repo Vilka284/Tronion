@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form id="question">
+    <label>Question:</label> <input type="text">
+    <label>Life-time:</label> <input type="text">
+</form>
+
+<form id="options">
+    <p>
+        <label>Option:</label> <input type="text">
+        <button class="remove">Remove</button>
+    </p>
+    <p>
+        <button class="add">Add fields</button>
+    </p>
+</form>
+</body>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript">
+$(".add").click(function() {
+    $("form> p:first-child").clone(true).insertBefore("form > p:last-child");
+    return false;
+});
+
+$(".remove").click(function() {
+    $(this).parent().remove();
+});
+
+</script>
+</html>

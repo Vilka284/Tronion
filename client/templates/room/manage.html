@@ -1,82 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tronion</title>
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="styles/registration.css">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tronion</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="styles/registration.css">
 </head>
 <body>
-	<div class="topnav" id="header">
-		<a class="tronion" href="/">
+<div class="topnav" id="header">
+    <a class="tronion" href="/">
 			<span>
 					Tronion
 			</span>
-		</a>
+    </a>
 
-		<img src="img/onion.png" title="Thinking onion" align="left">
+    <img src="img/onion.png" title="Thinking onion" align="left">
 
-		<a class="button" ref="#profile">
-			<img src="img/prof.png" title="Profile" align="right">
-		</a>
+    <a class="button" href="#profile">
+        <img src="img/prof.png" title="Profile" align="right">
+    </a>
 
-        <a class="button" href="/manage">
-			<span>Manage</span>
-		</a>
-        <a class="button" href="/join">
-			<span>Join</span>
-		</a>
+    <a class="button" href="/manage">
+        <span>Manage</span>
+    </a>
+    <a class="button" href="/join">
+        <span>Join</span>
+    </a>
 
-	</div>
+</div>
 
-    <form id="room-form">
-        <div class="reg">
-            <div class="group">
-                <label for="">Enter room name</label>
-                <input type="text" name="name" placeholder="Name" id="name">
-            </div>
-            <div class="group">
-                <label for="">Enter room description</label>
-                <input type="text" name="decription" placeholder="Decription" id="decription">
-            </div>
-
-            <div class="reg-submit">
-                <button type="submit">Create</button>
-            </div>
-
+<form id="room-form">
+    <div class="reg">
+        <div class="group">
+            <label for="">Enter room name</label>
+            <input type="text" name="name" placeholder="Name" id="name">
         </div>
-    </form>
+        <div class="group">
+            <label for="">Enter room description</label>
+            <input type="text" name="description" placeholder="Description" id="description">
+        </div>
+        <div id="msg"></div>
+        <div class="reg-submit">
+            <button type="submit">Create</button>
+        </div>
+
+    </div>
+</form>
+
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
     $(document).on('submit', '#room-form', function (e) {
         e.preventDefault();
-        csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
 
-        info = {
-            name: $('#name').val(),
-            description: $('#description').val(),
-        }
+        var name = $('#name').val();
+        var description = $('#description').val();
 
-         $.ajaxSetup({
-            beforeSend: function (xhr, settings) {
-                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
-                    xhr.setRequestHeader("X-CSRFToken",
-                        csrfmiddlewaretoken)
+        if (name != "" && description != "") {
+
+            $.ajax({
+                method: "POST",
+                url: '/create_room',
+                contentType: 'application/json; charset=UTF-8',
+                data: JSON.stringify({'name': name, 'description': description}),
+                dataType: "json",
+                headers: {"auth_token": localStorage.getItem('auth_token')},
+                success: function (data) {
+                    $('#msg').html('<span style="color: green;">Room created successfully</span>');
+
+                },
+                statusCode: {
+                    400: function () {
+                        $('#msg').html('<span style="color: red;">Bad request parameters</span>');
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
                 }
-            }
-        });
-        $.ajax({
-            type: 'POST',
-            url: '/create_room',
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            data: JSON.stringify(info),
+            });
 
-
-        });
+        } else {
+            $('#msg').html('<span style="color: red;">All fields are required</span>');
+        }
     });
 </script>
 
