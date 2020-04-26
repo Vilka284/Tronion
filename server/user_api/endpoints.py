@@ -77,12 +77,13 @@ def create():
     return jsonify(response), 200
 
 
-@user_api.route("/login", methods=["GET"])
+@user_api.route("/login_user", methods=["POST"])
 def login():
     """
     Login user function
     """
     data = request.json
+    print(data)
     # validation of the received data
     if not validate_json(login_schema, data):
         return jsonify({"error": "Data is invalid"}), 400
@@ -91,7 +92,7 @@ def login():
     user = db.select_rows(
         f"select * from account where email='{data['email']}'"
     )[0]
-
+    print(user)
     if user is None:
         return jsonify(
             {"error": "User with this email addres not exists"}
@@ -109,6 +110,7 @@ def login():
         "user": user_object(user),
         "token": token,
     }
+
     return jsonify(response), 200
 
 

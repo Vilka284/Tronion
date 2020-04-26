@@ -46,7 +46,7 @@
                 <span></span>
 
 		</div>
-		<button class="join_button">
+		<button class="join_button" id="join_button">
 			Join room!
 		</button>
 		<a href="#content">
@@ -70,4 +70,13 @@
 
 
 </body>
+
+<script type="text/javascript">
+    document.getElementById("join_button").onclick = function () {
+        /*
+        In future need to add checking of auth token
+         */
+        location.href = "/join";
+    };
+</script>
 </html>
