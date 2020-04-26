@@ -97,14 +97,16 @@
                 dataType: "json",
                 success: function (data) {
                     //Set token to current user
-                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('auth_token', data.token);
+                    alert(data.token);
                     //Say hi!
                     var user_name = data.user.first_name;
                     var html = `<span style="color: green;">Hello, ${user_name} </br> In a few seconds you
                                     will be redirected to the main page</span> `;
                     $('#msg').html(html);
                     //Redirect to main page
-                    //setTimeout(function redirect() {location.replace('/')}, 3000);
+                    var timeout = 100;
+                    setTimeout(function redirect() {location.replace('/')}, timeout);
                 },
                 statusCode: {
                     400: function () {

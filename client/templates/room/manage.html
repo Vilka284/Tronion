@@ -67,7 +67,7 @@
                 contentType: 'application/json; charset=UTF-8',
                 data: JSON.stringify({'name': name, 'description': description}),
                 dataType: "json",
-                headers: {"Authorization": localStorage.getItem('token')},
+                headers: {"auth_token": localStorage.getItem('auth_token')},
                 success: function (data) {
                     $('#msg').html('<span style="color: green;">Room created successfully</span>');
 

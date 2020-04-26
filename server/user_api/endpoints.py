@@ -23,15 +23,13 @@ def validate_json(schema, data):
     return True
 
 
-def user_object(user, password=False):
+def user_object(user):
     user_obj = {
         "id_user":      user[0],
         "first_name":   user[1],
         "last_name":    user[2],
         "email":        user[3],
     }
-    if password:
-        user_obj["password"] = user[4]
     return user_obj
 
 
