@@ -6,10 +6,12 @@ from random import randrange
 
 from server.app import db
 from server.user_api.endpoints import validate_json
-from server.auth_jwt import *
+from server.auth_jwt import Auth
 from .schemas import *
 
 room_api = Blueprint("room_api", __name__)
+
+from .chat import create_chat
 
 
 def get_room(code):
@@ -38,7 +40,6 @@ def create_room():
     """
 
     data = request.json
-    print(data)
     # validation of the received data
     if not validate_json(data, room_create_schema):
         return jsonify({"error": "Data is invalid"}), 400
@@ -65,3 +66,6 @@ def create_room():
 @Auth.login_required
 def test():
     return jsonify({"message": "its work!"})
+
+
+

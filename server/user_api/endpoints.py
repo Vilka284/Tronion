@@ -82,6 +82,7 @@ def login():
     """
     Login user function
     """
+    print(request.data)
     data = request.json
     # validation of the received data
     if not validate_json(login_schema, data):
@@ -91,7 +92,6 @@ def login():
     user = db.select_rows(
         f"select * from account where email='{data['email']}'"
     )[0]
-
     if user is None:
         return jsonify(
             {"error": "User with this email addres not exists"}
