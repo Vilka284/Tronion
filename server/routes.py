@@ -1,5 +1,6 @@
 from flask import render_template
 from server.app import app
+from server.auth_jwt import Auth
 
 @app.route('/')
 def index():
@@ -15,14 +16,14 @@ def login():
 def registration():
     return render_template('registration/registration.html')
 
-''' 
-Need to check if user logged in
-'''
+
 @app.route('/join')
+#@Auth.login_required
 def join():
     return render_template('join/join.html')
 
 
 @app.route('/manage')
+#@Auth.login_required
 def manage():
     return render_template('room/manage.html')
