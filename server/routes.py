@@ -1,6 +1,7 @@
 from flask import render_template
 from server.app import app
 
+
 @app.route('/')
 def index():
     return render_template('landing/index.html')
@@ -15,9 +16,8 @@ def login():
 def registration():
     return render_template('registration/registration.html')
 
-''' 
-Need to check if user logged in
-'''
+
+# Need to check if user logged in
 @app.route('/join')
 def join():
     return render_template('join/join.html')
@@ -26,3 +26,18 @@ def join():
 @app.route('/manage')
 def manage():
     return render_template('room/manage.html')
+
+
+@app.route('/create_poll')
+def create():
+    return render_template('room/create_poll.html')
+
+
+@app.route('/results')
+def show_results():
+    return render_template('room/results.html')
+
+
+@app.route('/poll')
+def root():
+    return render_template('room/poll.html')
