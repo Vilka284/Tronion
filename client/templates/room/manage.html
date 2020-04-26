@@ -39,7 +39,7 @@
             <label for="">Enter room description</label>
             <input type="text" name="description" placeholder="Description" id="description">
         </div>
-
+        <div id="msg"></div>
         <div class="reg-submit">
             <button type="submit">Create</button>
         </div>
@@ -53,37 +53,39 @@
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
-   $(document).on('submit', '#room-form', function(e) {
-		e.preventDefault();
+    $(document).on('submit', '#room-form', function (e) {
+        e.preventDefault();
 
-		var name = $('#name').val();
-		var description = $('#description').val();
+        var name = $('#name').val();
+        var description = $('#description').val();
 
-		if(name != "" && description != "") {
+        if (name != "" && description != "") {
 
-				$.ajax({
-					method: "POST",
-					url: '/create_room',
-					contentType: 'application/json; charset=UTF-8',
-					data: JSON.stringify({'name': name, 'description': description}),
-					dataType: "json",
-                    auth_token: token,
-					success: function(data) {
-						$('#msg').html('<span style="color: green;">Room created successfully</span>');
-					},statusCode: {
-						400: function() {
-							$('#msg').html('<span style="color: red;">Bad request parameters</span>');
-						}
-					},
-					error: function(err) {
-						console.log(err);
-					}
-				});
+            $.ajax({
+                method: "POST",
+                url: '/create_room',
+                contentType: 'application/json; charset=UTF-8',
+                data: JSON.stringify({'name': name, 'description': description}),
+                dataType: "json",
+                headers: {"Authorization": localStorage.getItem('token')},
+                success: function (data) {
+                    $('#msg').html('<span style="color: green;">Room created successfully</span>');
 
-		} else {
-			$('#msg').html('<span style="color: red;">All fields are required</span>');
-		}
-	});
+                },
+                statusCode: {
+                    400: function () {
+                        $('#msg').html('<span style="color: red;">Bad request parameters</span>');
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+
+        } else {
+            $('#msg').html('<span style="color: red;">All fields are required</span>');
+        }
+    });
 </script>
 
 </html>

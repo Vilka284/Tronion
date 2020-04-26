@@ -38,7 +38,7 @@ def create_room():
     """
 
     data = request.json
-    print(data)
+    print(request.headers)
 
     # validation of the received data
     if not validate_json(data, room_create_schema):

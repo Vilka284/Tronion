@@ -44,12 +44,12 @@ class Auth:
         @wraps(func)
         def decorator(*args, **kwargs):
 
-            if "auth_token" not in request.headers:
+            if "Authorization" not in request.headers:
                 return jsonify({"error": "token is missing"}), 400
 
             user_id = None
 
-            token = request.headers["auth_token"]
+            token = request.headers["Authorization"]
 
             # decode token
             try:
