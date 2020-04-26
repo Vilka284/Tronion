@@ -61,9 +61,11 @@ def create_room():
     }
     return jsonify(response), 200
 
+
 @room_api.route('/update_info', methods=["GET", "POST"])
 def update_info():
     return jsonify({"message": "its work!"})
+
 
 @room_api.route("/test", methods=["GET"])
 @Auth.login_required

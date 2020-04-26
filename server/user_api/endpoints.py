@@ -110,8 +110,3 @@ def login():
     }
 
     return jsonify(response), 200
-
-
-
-
-
