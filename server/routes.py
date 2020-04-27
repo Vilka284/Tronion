@@ -29,6 +29,11 @@ def manage():
     return render_template('room/manage.html')
 
 
+@app.route('/room/<int:id_room>')
+def room(id_room):
+    return render_template(('room/room.html'))
+
+
 @app.route('/create_poll')
 def create():
     return render_template('room/create_poll.html')
@@ -42,3 +47,4 @@ def show_results():
 @app.route('/poll')
 def root():
     return render_template('room/poll.html')
+

@@ -62,9 +62,29 @@ def create_room():
     return jsonify(response), 200
 
 
-@room_api.route('/update_info', methods=["GET", "POST"])
-def update_info():
-    return jsonify({"message": "its work!"})
+@room_api.route("/join_room", methods=["POST"])
+@Auth.login_required
+def join_room():
+    """
+
+    Join room function
+    """
+    data = request.json
+    code = data['code']
+
+    db_data = db.select_rows(
+        f"select * from room where id_room = {code}"
+    )
+
+    if db_data is None:
+        return jsonify({"error": "There is no room with this code"}), 404
+
+    response = {
+        "result": "ok",
+        "room_data": db_data[0]
+    }
+    return jsonify(response), 200
+
 
 
 @room_api.route("/test", methods=["GET"])
