@@ -27,3 +27,7 @@ def join():
 #@Auth.login_required
 def manage():
     return render_template('room/manage.html')
+
+@app.route('/room/<int:id_room>')
+def room(id_room):
+    return render_template(('room/room.html'))

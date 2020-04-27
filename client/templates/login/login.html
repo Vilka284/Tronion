@@ -98,12 +98,11 @@
                 success: function (data) {
                     //Set token to current user
                     localStorage.setItem('auth_token', data.token);
-                    alert(data.token);
                     //Say hi!
                     var user_name = data.user.first_name;
-                    var html = `<span style="color: green;">Hello, ${user_name} </br> In a few seconds you
-                                    will be redirected to the main page</span> `;
-                    $('#msg').html(html);
+
+                    $('#msg').html(`<span style="color: green;">Hello, ${user_name} </br> In a few seconds you
+                                    will be redirected to the main page</span> `);
                     //Redirect to main page
                     var timeout = 100;
                     setTimeout(function redirect() {location.replace('/')}, timeout);
