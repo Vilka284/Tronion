@@ -105,8 +105,17 @@ def login():
 
     response = {
         "result": "ok",
+        "id_user": user[0],
         "user": user_object(user),
         "token": token,
     }
 
     return jsonify(response), 200
+
+@user_api.route("/logout_user", methods=["GET"])
+@Auth.login_required
+def logout_user():
+
+    response = {'message' : 'ok'}
+
+    return response, 200

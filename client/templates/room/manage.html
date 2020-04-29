@@ -5,6 +5,10 @@
     <title>Tronion</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="styles/registration.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="scripts/room/submit_request.js"></script>
+    <script src="scripts/room/update_request.js"></script>
 </head>
 <body>
 <div class="topnav" id="header">
@@ -43,49 +47,17 @@
         <div class="reg-submit">
             <button type="submit">Create</button>
         </div>
+        <div class="reg-submit">
+
+ </div>
+         <div class="reg-submit">
+            <button type="update">Update</button>
+ </div>
 
     </div>
 </form>
 
 </body>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-
-    $(document).on('submit', '#room-form', function (e) {
-        e.preventDefault();
-
-        var name = $('#name').val();
-        var description = $('#description').val();
-
-        if (name != "" && description != "") {
-
-            $.ajax({
-                method: "POST",
-                url: '/create_room',
-                contentType: 'application/json; charset=UTF-8',
-                data: JSON.stringify({'name': name, 'description': description}),
-                dataType: "json",
-                headers: {"auth_token": localStorage.getItem('auth_token')},
-                success: function (data) {
-                    $('#msg').html('<span style="color: green;">Room created successfully</span>');
-
-                },
-                statusCode: {
-                    400: function () {
-                        $('#msg').html('<span style="color: red;">Bad request parameters</span>');
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-
-        } else {
-            $('#msg').html('<span style="color: red;">All fields are required</span>');
-        }
-    });
-</script>
 
 </html>

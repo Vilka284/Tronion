@@ -13,15 +13,23 @@ room_api = Blueprint("room_api", __name__)
 
 
 def get_room(code):
-    temp = db.select_rows(
+    """
+    Get room by code
+
+    :param code: room code
+    :return: room
+    """
+    room = db.select_rows(
         f"select * from room where id_room = {code}"
     )
-    return temp
+    return room
 
 
 def rand_code():
     """
     Generation of five character id
+
+    :return: random code
     """
     code = str(randrange(10000, 99999))
     if get_room(code) is None:
@@ -29,16 +37,26 @@ def rand_code():
     return rand_code()
 
 
+def get_user_rooms(id_user):
+    """
+    Get rooms by user id
+
+    :param id_user:
+    :return: rooms
+    """
+
 @room_api.route('/create_room', methods=["POST"])
 @Auth.login_required
 def create_room():
     """
-
     Create room function
+
+    :return:
     """
 
     data = request.json
-    print(request.headers)
+    id_user = data.id_user
+    print(data)
 
     # validation of the received data
     if not validate_json(data, room_create_schema):
@@ -59,6 +77,7 @@ def create_room():
     response = {
         "result": "ok"
     }
+
     return jsonify(response), 200
 
 
@@ -66,8 +85,9 @@ def create_room():
 @Auth.login_required
 def join_room():
     """
-
     Join room function
+
+    :return:
     """
     data = request.json
     code = data['code']
@@ -85,6 +105,17 @@ def join_room():
     }
     return jsonify(response), 200
 
+
+@room_api.route("/update_manage", methods=["GET"])
+@Auth.login_required
+def update_manage():
+    """
+
+    Update manage room info
+    :return:
+    """
+    data = request.json
+    data["id_user"]
 
 
 @room_api.route("/test", methods=["GET"])

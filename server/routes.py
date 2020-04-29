@@ -13,9 +13,15 @@ def login():
     return render_template('login/login.html')
 
 
+@app.route('/logout')
+def logout():
+    return render_template('login/logout.html')
+
+
 @app.route('/register')
 def registration():
     return render_template('registration/registration.html')
+
 
 @app.route('/join')
 #@Auth.login_required
