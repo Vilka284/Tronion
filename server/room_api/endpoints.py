@@ -44,6 +44,21 @@ def get_user_rooms(id_user):
     :param id_user:
     :return: rooms
     """
+    rooms = []
+    user_room = db.select_rows(
+        f"select * from user_has_room where user_id = {id_user}"
+    )
+    if user_room is not None:
+        message = 'Here is your rooms:'
+        for room in user_room:
+            rooms.append(db.select_rows(
+                f"select * from room where id_room = {room[1]}"
+            ))
+    else:
+        message = 'You have no rooms! Do you want to create one?'
+
+    return (rooms, message)
+
 
 @room_api.route('/create_room', methods=["POST"])
 @Auth.login_required
@@ -55,7 +70,7 @@ def create_room():
     """
 
     data = request.json
-    id_user = data.id_user
+
     print(data)
 
     # validation of the received data
@@ -71,7 +86,18 @@ def create_room():
                    '{data['name']}', 
                    '{data['description']}'
                )"""
-        )
+    )
+    db.commit()
+
+    # Давайте наступного разу називати конкретно id_вещь, або вещь_id
+    # Інакше запутатись можна
+    db.insert_data(
+        f"""
+                insert into user_has_room (user_id, room_id) values ( 
+                       '{data['id_user']}', 
+                       '{code}'
+                   )"""
+    )
     db.commit()
 
     response = {
@@ -106,7 +132,7 @@ def join_room():
     return jsonify(response), 200
 
 
-@room_api.route("/update_manage", methods=["GET"])
+@room_api.route("/update_manage", methods=["POST"])
 @Auth.login_required
 def update_manage():
     """
@@ -115,11 +141,19 @@ def update_manage():
     :return:
     """
     data = request.json
-    data["id_user"]
+    rooms, message = get_user_rooms(data["id_user"])
+
+    print(rooms)
+
+    response = {
+        "message": message,
+        "rooms": rooms
+    }
+
+    return jsonify(response), 200
 
 
 @room_api.route("/test", methods=["GET"])
 @Auth.login_required
 def test():
     return jsonify({"message": "its work!"})
-

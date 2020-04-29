@@ -15,7 +15,6 @@ $(document).on('submit', '#room-form', function (e) {
                 headers: {"auth_token": localStorage.getItem('auth_token')},
                 success: function (data) {
                     $('#msg').html('<span style="color: green;">Room created successfully</span>');
-
                 },
                 statusCode: {
                     400: function () {
@@ -30,4 +29,5 @@ $(document).on('submit', '#room-form', function (e) {
         } else {
             $('#msg').html('<span style="color: red;">All fields are required</span>');
         }
+
     });
