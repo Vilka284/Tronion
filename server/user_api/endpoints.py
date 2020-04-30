@@ -10,7 +10,6 @@ from .schemas import *
 
 import hashlib
 
-
 user_api = Blueprint("user_api", __name__)
 
 
@@ -25,15 +24,12 @@ def validate_json(schema, data):
 
 def user_object(user):
     user_obj = {
-        "id_user":      user[0],
-        "first_name":   user[1],
-        "last_name":    user[2],
-        "email":        user[3],
+        "id_user": user[0],
+        "first_name": user[1],
+        "last_name": user[2],
+        "email": user[3],
     }
     return user_obj
-
-
-
 
 
 @user_api.route("/register", methods=["POST"])
@@ -112,16 +108,16 @@ def login():
 
     return jsonify(response), 200
 
+
 @user_api.route("/logout_user", methods=["GET"])
 def logout_user():
-
-    response = {'message' : 'ok'}
+    response = {'message': 'ok'}
 
     return response, 200
 
+
 @user_api.route("/is_logged", methods=["GET"])
 def is_logged():
-
     data = request.headers["auth_token"]
     print(data)
     response = {'message': 'ok'}
