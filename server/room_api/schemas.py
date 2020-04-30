@@ -13,3 +13,9 @@ chat_create_shcema = {
         "maxLength": 5
     }
 }
+
+poll_create_schema = {
+    "question": {"type": "string"},
+    "life_time": {"type": "string"},
+    "note": {"type": "string"}
+}

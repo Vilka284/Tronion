@@ -40,7 +40,7 @@ def user_object(user):
 def create():
     """
     Create user function
-    """
+      """
 
     data = request.json
 
@@ -108,10 +108,5 @@ def login():
         "user": user_object(user),
         "token": token,
     }
-
     return jsonify(response), 200
-
-
-
-
 

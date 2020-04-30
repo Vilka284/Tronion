@@ -2,13 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <title>Title</title>
+=======
+    <title>Create poll</title>
+>>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
 </head>
 <body>
 
 <form id="question">
+<<<<<<< HEAD
     <label>Question:</label> <input type="text">
     <label>Life-time:</label> <input type="text">
+=======
+    <div class="main">
+    <div class="group">
+                <label for="">Enter Question</label>
+                <input type="text" name="question" placeholder="Question" id="question">
+            </div>
+    <div class="group">
+                <label for="">Enter Life-time</label>
+                <input type="text" name="life-time" placeholder="Life-time" id="life-time">
+            </div>
+    </div>
+>>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
 </form>
 
 <form id="options">
@@ -19,7 +36,15 @@
     <p>
         <button class="add">Add fields</button>
     </p>
+<<<<<<< HEAD
 </form>
+=======
+<div class="poll-submit">
+                <button type="submit">Submit poll</button>
+            </div>
+</form>
+
+>>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
 </body>
 
 
@@ -35,4 +60,33 @@ $(".remove").click(function() {
 });
 
 </script>
+<<<<<<< HEAD
+=======
+
+<script type="text/javascript">
+    $(document).on('submit', '#question', function (s) {
+        s.preventDefault();
+        csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
+        //формуємо js обєкт info витягуючи з полів значення
+        question = {
+            question: $('#question').val(),
+            life_time: $('#life_time').val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/create_poll',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(question),
+
+            success: function () {
+                alert("Create new poll");
+            }
+
+        });
+    });
+</script>
+
+>>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
 </html>

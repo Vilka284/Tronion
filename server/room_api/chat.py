@@ -3,11 +3,11 @@ from flask_socketio import leave_room
 from flask_socketio import join_room
 from flask import request, jsonify
 
-from server.app import sio
 
 from .endpoints import room_api
 
 from server.app import db
+from server.app import sio
 from server.user_api.endpoints import validate_json
 from server.auth_jwt import Auth
 from .schemas import *
@@ -15,7 +15,7 @@ from .schemas import *
 
 
 @room_api.route("/create_chat", methods=["POST"])
-# @Auth.login_required
+@Auth.login_required
 def create_chat():
     """
     Create chat function
@@ -50,5 +50,9 @@ def create_chat():
         "result": "ok"
     }
     return jsonify(response), 200
+
+
+
+# @sio.
 
 

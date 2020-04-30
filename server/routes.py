@@ -1,5 +1,9 @@
 from flask import render_template
 from server.app import app
+from server.auth_jwt import Auth
+
+import os
+
 
 @app.route('/')
 def index():
@@ -15,14 +19,35 @@ def login():
 def registration():
     return render_template('registration/registration.html')
 
-''' 
-Need to check if user logged in
-'''
 @app.route('/join')
+#@Auth.login_required
 def join():
     return render_template('join/join.html')
 
 
 @app.route('/manage')
+#@Auth.login_required
 def manage():
     return render_template('room/manage.html')
+
+
+@app.route('/create_poll')
+def create():
+    return render_template('room/create_poll.html')
+
+
+@app.route('/results')
+def show_results():
+    return render_template('room/results.html')
+
+
+@app.route('/poll')
+def root():
+    return render_template('room/poll.html')
+
+
+@app.route('/chat')
+def chat():
+    path = os.path.abspath(os.path.dirname(__file__))
+    print(path)
+    return render_template('/chat.html')
