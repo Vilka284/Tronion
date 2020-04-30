@@ -32,7 +32,9 @@ $(document).on('submit', '#reg-form', function (e) {
             data: JSON.stringify(info),
 
             success: function () {
-                alert("Create new user");
+                //Redirect to main page
+                var timeout = 100;
+                setTimeout(function redirect() {location.replace('/login')}, timeout);
             }
 
         });
