@@ -118,3 +118,13 @@ def logout_user():
     response = {'message' : 'ok'}
 
     return response, 200
+
+@user_api.route("/is_logged", methods=["GET"])
+def is_logged():
+
+    data = request.headers["auth_token"]
+    print(data)
+    response = {'message': 'ok'}
+    if data == 0:
+        return response, 400
+    return response, 200
