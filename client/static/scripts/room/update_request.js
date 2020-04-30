@@ -2,6 +2,7 @@ $(document).on('submit', '#update-form', function (a) {
     a.preventDefault();
 
 
+
     $.ajax({
         method: "POST",
         url: '/update_manage',
@@ -10,7 +11,22 @@ $(document).on('submit', '#update-form', function (a) {
         dataType: "json",
         headers: {"auth_token": localStorage.getItem('auth_token')},
         success: function (data) {
-            console.log(data)
+            $('#message').remove();
+            var rooms = data.rooms;
+            var iDiv = document.createElement('div');
+            iDiv.id = 'message';
+            iDiv.className = 'message';
+            document.getElementsByTagName('body')[0].appendChild(iDiv);
+            iDiv.innerHTML = `${data.message}`;
+
+            for (var i = 0; i < rooms.length; i++) {
+                var innerDiv = document.createElement('div');
+                innerDiv.id = 'room-data';
+                innerDiv.className = `room-data-${i}`;
+                iDiv.appendChild(innerDiv);
+                innerDiv.innerHTML = `${rooms[i]}`;
+            }
+
         },
         statusCode: {
             400: function () {

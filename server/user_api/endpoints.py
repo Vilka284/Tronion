@@ -113,7 +113,6 @@ def login():
     return jsonify(response), 200
 
 @user_api.route("/logout_user", methods=["GET"])
-@Auth.login_required
 def logout_user():
 
     response = {'message' : 'ok'}
