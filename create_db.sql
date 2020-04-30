@@ -26,3 +26,5 @@ CREATE TABLE answer_has_user ( user_id INTEGER, answer_id INTEGER, FOREIGN KEY (
 
 CREATE TABLE room_has_user ( user_id INTEGER, room_id INTEGER, FOREIGN KEY (user_id) REFERENCES account(id_user) ON DELETE CASCADE, FOREIGN KEY (room_id) REFERENCES room(id_room) ON DELETE CASCADE
 );
+
+CREATE TABLE user_has_room ( user_id INTEGER, room_id INTEGER);

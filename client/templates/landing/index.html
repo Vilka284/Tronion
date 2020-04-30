@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
-	<title>Tronion</title>
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="styles/index.css">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tronion</title>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="styles/index.css">
 </head>
 <body>
-	<div class="topnav" id="header">
-		<a class="tronion" href="/">
+<div class="topnav" id="header">
+    <a class="tronion" href="/">
 			<span>
 					Tronion
 			</span>
-		</a>
+    </a>
 
-		<img src="img/onion.png" title="Thinking onion" align="left">
+    <img src="img/onion.png" title="Thinking onion" align="left">
 
-        <a class="button" href="/register">
-			<span>Sign up</span>
-		</a>
-        <span style="font-family: Arial;
+    <a class="button" href="/register" id="signup">
+        <span>Sign up</span>
+    </a>
+    <span style="font-family: Arial;
                         display: inline-block;
                         float: right;
                         color: #f2f2f2;
@@ -29,53 +29,67 @@
                         font-size: 2vh;" id="or">
             or
         </span>
-        <a class="button" href="/login">
-			<span>Sign in</span>
-		</a>
+    <a class="button" href="/login" id="signin">
+        <span>Sign in</span>
+    </a>
 
-	</div>
 
-	<div class="background"
-         style="background: url('img/gays.jpg');
+    <a class="button" href="/profile" id="profile">
+        <img src="img/prof.png" title="Profile" align="right">
+    </a>
+
+    <a class="button" href="/manage" id="manage">
+        <span>Manage</span>
+    </a>
+    <a class="button" href="/join" id="join">
+        <span>Join</span>
+    </a>
+
+
+</div>
+
+<div class="background"
+     style="background: url('img/gays.jpg');
                 width: 100%;
                 height: 45em;
                 background-repeat: no-repeat;
                 position: relative;
                 background-size: cover;">
-		<h3>Tap here to join room via room code</h3>
-		<div class="arrow">
-                <span></span>
-                <span></span>
-                <span></span>
+    <h3>Tap here to join room via room code</h3>
+    <div class="arrow">
+        <span></span>
+        <span></span>
+        <span></span>
 
-		</div>
-		<button class="join_button" id="join_button">
-			Join room!
-		</button>
-		<a href="#content">
-			<button class="title_button">
-				Tronion is free and easy vote tool for your events. We provide:
-			</button>
-		</a>
-	</div>
-
-	<div class="content" id="content">
-        <div class="container1">
-            Free hosting for your rooms and events
-        </div>
-        <div class="container2">
-            <span>Unlimited polls and participants</span>
-        </div>
-        <div class="container3">
-            <span>Voting statistics</span>
-        </div>
     </div>
+    <button class="join_button" id="join_button">
+        Join room!
+    </button>
+    <a href="#content">
+        <button class="title_button">
+            Tronion is free and easy vote tool for your events. We provide:
+        </button>
+    </a>
+</div>
+
+<div class="content" id="content">
+    <div class="container1">
+        Free hosting for your rooms and events
+    </div>
+    <div class="container2">
+        <span>Unlimited polls and participants</span>
+    </div>
+    <div class="container3">
+        <span>Voting statistics</span>
+    </div>
+</div>
 
 
 </body>
 
 <script type="text/javascript">
     document.getElementById("join_button").onclick = function () {
+<<<<<<< HEAD
 <<<<<<< HEAD
         /*
         In future need to add checking of auth token
@@ -87,5 +101,57 @@
     };
 
 >>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
+=======
+        var isLoggedIn = localStorage.getItem('loggedin');
+
+        if (isLoggedIn == 1) {
+            location.replace('/join');
+        } else {
+            location.replace('/login')
+        }
+    };
+
+    function view() {
+        var isLoggedIn = localStorage.getItem('loggedin');
+
+        if (isLoggedIn == 1) {
+            document.getElementById("signin").style.display = "none";
+            document.getElementById("signup").style.display = "none";
+            document.getElementById("or").style.display = "none";
+            document.getElementById("profile").style.visibility = "visible";
+            document.getElementById("manage").style.visibility = "visible";
+            document.getElementById("join").style.visibility = "visible";
+        } else {
+            document.getElementById("signin").style.visibility = "visible";
+            document.getElementById("signup").style.visibility = "visible";
+            document.getElementById("or").style.visibility = "visible";
+            document.getElementById("profile").style.display = "none";
+            document.getElementById("manage").style.display = "none";
+            document.getElementById("join").style.display = "none";
+        }
+    };
+
+    window.onload = view();
+
+    /*$('#logout').on('submit', function e() {
+        e.preventDefault();
+
+        $ajax({
+            url: '/logout',
+            dataType: 'json',
+            success: function (data) {
+                localStorage.setItem('loggedin', 0);
+
+                document.getElementById("signin").style.visibility = "visible";
+                document.getElementById("signup").style.visibility = "visible";
+                document.getElementById("or").style.visibility = "visible";
+                document.getElementById("profile").style.display = "none";
+                document.getElementById("manage").style.display = "none";
+                document.getElementById("join").style.display = "none";
+            }
+
+        })
+    });*/
+>>>>>>> b84e99e88bd33327ec45600348187876a6c5101e
 </script>
 </html>

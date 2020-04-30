@@ -28,20 +28,27 @@
 >>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
 </form>
 
-<form id="options">
-    <p>
+<form id="poll">
+
+    <div class="copy">
         <label>Option:</label> <input type="text">
         <button class="remove">Remove</button>
-    </p>
+    </div>
     <p>
         <button class="add">Add fields</button>
     </p>
+<<<<<<< HEAD
 <<<<<<< HEAD
 </form>
 =======
 <div class="poll-submit">
                 <button type="submit">Submit poll</button>
             </div>
+=======
+    <div class="poll-submit">
+        <button type="submit">Submit poll</button>
+    </div>
+>>>>>>> b84e99e88bd33327ec45600348187876a6c5101e
 </form>
 
 >>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
@@ -51,7 +58,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
 <script type="text/javascript">
 $(".add").click(function() {
-    $("form> p:first-child").clone(true).insertBefore("form > p:last-child");
+    $("form > .copy").clone(true).insertBefore(".add");
     return false;
 });
 
@@ -64,13 +71,12 @@ $(".remove").click(function() {
 =======
 
 <script type="text/javascript">
-    $(document).on('submit', '#question', function (s) {
-        s.preventDefault();
-        csrfmiddlewaretoken = $('input[name=csrfmiddlewaretoken]').val()
-        //формуємо js обєкт info витягуючи з полів значення
+    $(document).on('submit', '#question', function (e) {
+        e.preventDefault();
         question = {
             question: $('#question').val(),
             life_time: $('#life_time').val(),
+            note: $('#note').val(),
         }
 
         $.ajax({

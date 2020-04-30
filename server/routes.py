@@ -15,9 +15,15 @@ def login():
     return render_template('login/login.html')
 
 
+@app.route('/logout')
+def logout():
+    return render_template('login/logout.html')
+
+
 @app.route('/register')
 def registration():
     return render_template('registration/registration.html')
+
 
 @app.route('/join')
 #@Auth.login_required
@@ -29,6 +35,11 @@ def join():
 #@Auth.login_required
 def manage():
     return render_template('room/manage.html')
+
+
+@app.route('/room/<int:id_room>')
+def room(id_room):
+    return render_template(('room/room.html'))
 
 
 @app.route('/create_poll')
