@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, url_for, redirect, render_template
 from flask import request
 from flask import g
 from config import Config
@@ -45,7 +45,9 @@ class Auth:
         def decorator(*args, **kwargs):
 
             if "auth_token" not in request.headers:
-                return jsonify({"error": "token is missing"}), 400
+                #return jsonify({"error": "token is missing"}), 400
+                return redirect(url_for('login')), 400
+                #render_template('login/login.html')
 
             user_id = None
 
@@ -56,7 +58,8 @@ class Auth:
                 payload = jwt.decode(token, Config.SECRET_KEY)
                 user_id = payload["sub"]
             except jwt.ExpiredSignatureError as e:
-                return jsonify({'message': 'token expired'}), 400
+                #return jsonify({'message': 'token expired'}), 400
+                return redirect(url_for('login')), 400
             except jwt.InvalidTokenError as e:
                 return jsonify(
                     {'message': 'Invalid token, please try again'}), 400
