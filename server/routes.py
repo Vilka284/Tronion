@@ -57,8 +57,3 @@ def root():
     return render_template('room/poll.html')
 
 
-@app.route('/chat')
-def chat():
-    path = os.path.abspath(os.path.dirname(__file__))
-    print(path)
-    return render_template('/chat.html')

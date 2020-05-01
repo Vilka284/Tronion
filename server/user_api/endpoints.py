@@ -80,9 +80,9 @@ def login():
     """
     Login user function
     """
-    print(request.data)
+
     data = request.json
-    print(data)
+
     # validation of the received data
     if not validate_json(login_schema, data):
         return jsonify({"error": "Data is invalid"}), 400

@@ -50,7 +50,6 @@ class Auth:
             user_id = None
 
             token = request.headers["auth_token"]
-
             # decode token
             try:
                 payload = jwt.decode(token, Config.SECRET_KEY)

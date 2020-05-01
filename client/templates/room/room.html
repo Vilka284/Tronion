@@ -4,7 +4,40 @@
 	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 	<title>Tronion</title>
 	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-	<link rel="stylesheet" type="text/css" href="styles/room.css">
+    <link rel="stylesheet" type="text/css" href="styles/room.css">
+	<script src="//code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            // namespace = '/test';
+            // var socket = io(namespace);
+
+           const socket = io.connect(
+                `${window.location.protocol}//${document.domain}:${window.location.port}`
+            );
+
+            // теба адкватніший спосіб придумати
+
+			var user_id = localStorage.getItem("id_user")
+            var current_room = $(location).attr('pathname').split("/").pop()
+
+            socket.on('connect', function () {
+                socket.emit('join', {room: current_room})
+                return false;
+            });
+
+            socket.on('response', function(msg, cb) {
+                $('#log').append('<br>' + $('<div/>').text(msg.user + ': ' +msg.data + ' ' + msg.send_on).html());
+                if (cb)
+                    cb();
+            });
+
+             $('form#send_room').submit(function(event) {
+                socket.emit('my_room_event', {room: current_room, user: user_id, data: $('#room_data').val()});
+                return false;
+            });
+        });
+    </script>
 </head>
 <body>
 	<div class="topnav" id="header">
@@ -29,6 +62,14 @@
 
 	</div>
 
+    <h2>Send:</h2>
+    <form id="send_room" method="POST" action='#'>
+    <!--<input type="text" name="room_name" id="room_name" placeholder="Room Name">-->
+        <input type="text" name="room_data" id="room_data" placeholder="Message">
+        <input type="submit" value="Send to Room">
+    </form>
+    <h2>Receive:</h2>
+    <div id="log"></div>
 
 </body>
 

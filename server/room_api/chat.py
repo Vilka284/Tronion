@@ -1,7 +1,8 @@
 from flask_socketio import Namespace
 from flask_socketio import leave_room
 from flask_socketio import join_room
-from flask import request, jsonify
+from flask_socketio import emit
+from flask import request, jsonify, g
 
 
 from .endpoints import room_api
@@ -12,47 +13,53 @@ from server.user_api.endpoints import validate_json
 from server.auth_jwt import Auth
 from .schemas import *
 
+from datetime import datetime
 
 
-@room_api.route("/create_chat", methods=["POST"])
+def get_user_by_id(id):
+    return " ".join(db.select_rows(
+        f"select first_name, last_name from account where id_user={int(id)}"
+    )[0])
+
+
 @Auth.login_required
-def create_chat():
-    """
-    Create chat function
-    """
+@sio.on('my_room_event')
+def send_room_message(message):
+    if message["data"]:
+        send_on = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        # datetime.now().strftime("%H:%M")
 
-    data = request.json
+        db.insert_data(
+            f"""
+                insert into message(content, date_send, room_id, user_id) 
+                values (
+                    '{message["data"]}',
+                    '{send_on}',
+                    {int(message["room"])},
+                    {int(message["user"])}
+                )           
+                
+            """
+        )
+        db.commit()
 
-    # validation of the received data
-    if not validate_json(data, chat_create_shcema):
-        return jsonify({"error": "Data is invalid"}), 400
+        response = {
+            "user": get_user_by_id(message["user"]).upper(),
+            "data": message['data'],
+            "send_on": send_on,
 
-    # search room by id
-    room = db.select_rows(
-        f"select * from room where id_room={data['room_id']}"
-    )[0]
-    if room is None:
-        return jsonify(
-            {"error": "Room with this id not exists"}
-        ), 400
+        }
 
-    db.insert_data(
-        f"""
-             insert into chat (name, description, room_id) values (
-                    '{data['name']}', 
-                    '{data['description']}',
-                    {data['room_id']}
-                )"""
-    )
-    db.commit()
-
-    response = {
-        "result": "ok"
-    }
-    return jsonify(response), 200
+        emit('response', response, room=message["room"])
 
 
 
-# @sio.
+@Auth.login_required
+@sio.on('join')
+def handle_join(data):
+    join_room(data["room"])
+
+
+
 
 
