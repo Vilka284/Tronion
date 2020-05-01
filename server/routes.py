@@ -1,4 +1,4 @@
-from flask import render_template
+from flask import render_template, current_app, url_for
 from server.app import app
 from server.auth_jwt import Auth
 
@@ -21,6 +21,13 @@ def logout():
 @app.route('/register')
 def registration():
     return render_template('registration/registration.html')
+
+
+@app.route('/vote')
+#@Auth.login_required
+def vote():
+    """Return the poll participant client application."""
+    return render_template('room/vote.html')
 
 
 @app.route('/join')
@@ -52,12 +59,14 @@ def create():
     return render_template('room/create_poll.html')
 
 
-@app.route('/results')
+@app.route('/polls')
 def show_results():
-    return render_template('room/results.html')
+
+    # Return the poll administrator client application.
+    vote_url = current_app.config.get('POLLS_VOTE_URL') or \
+        url_for('vote', _external=True)
+
+    return render_template('room/results.html', vote_url=vote_url)
 
 
-@app.route('/poll')
-def root():
-    return render_template('room/poll.html')
 
