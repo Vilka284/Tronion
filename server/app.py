@@ -1,7 +1,9 @@
+from eventlet.green import os
 from flask import Flask, render_template
 from config import Config
 from os import path, getcwd
 from db import Databse
+from flask_socketio import SocketIO
 
 
 # setting up app name and templates directory
@@ -12,17 +14,18 @@ app = Flask(__name__,
             template_folder=TEMPLATE_DIR,
             static_folder=STATIC_DIR)
 
+# load config
+app.config.from_object(Config)
+app.config['POLLS_VOTE_URL'] = os.environ.get('POLLS_VOTE_URL')
+
+sio = SocketIO(app)
+
 # connect to database
 db = Databse()
 db.connection()
 
 
-
 def create_app():
-
-    # load config
-    app.config.from_object(Config)
-
     from server.user_api.endpoints import user_api
     from server.room_api.endpoints import room_api
 
@@ -35,4 +38,3 @@ def create_app():
     app.register_blueprint(user_api)
 
     return app
-

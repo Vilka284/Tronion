@@ -1,8 +1,8 @@
-from server import app
+from server.app import create_app, sio
 
 '''
 main code to run app.py
 '''
 
 if __name__ == "__main__":
-    app.create_app().run()
+    sio.run(create_app())
