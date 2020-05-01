@@ -57,7 +57,7 @@ def get_user_rooms(id_user):
     if user_room is not None:
         message = 'Here is your rooms:'
         for room in user_room:
-            rooms.append(db.select_rows(
+            rooms.extend(db.select_rows(
                 f"select * from room where id_room = {room[1]}"
             ))
     else:

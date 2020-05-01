@@ -5,6 +5,8 @@
     <title>Tronion</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/landing/view.js"></script>
 </head>
 <body>
 <div class="topnav" id="header">
@@ -89,19 +91,6 @@
 
 <script type="text/javascript">
     document.getElementById("join_button").onclick = function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        /*
-        In future need to add checking of auth token
-         */
-        location.href = "/join";
-    };
-=======
-        location.replace('/join')
-    };
-
->>>>>>> b5daa21866aec04b7fda3dc81ec5e946a6529791
-=======
         var isLoggedIn = localStorage.getItem('loggedin');
 
         if (isLoggedIn == 1) {
@@ -110,6 +99,7 @@
             location.replace('/login')
         }
     };
+
 
     function view() {
         var isLoggedIn = localStorage.getItem('loggedin');
@@ -133,25 +123,5 @@
 
     window.onload = view();
 
-    /*$('#logout').on('submit', function e() {
-        e.preventDefault();
-
-        $ajax({
-            url: '/logout',
-            dataType: 'json',
-            success: function (data) {
-                localStorage.setItem('loggedin', 0);
-
-                document.getElementById("signin").style.visibility = "visible";
-                document.getElementById("signup").style.visibility = "visible";
-                document.getElementById("or").style.visibility = "visible";
-                document.getElementById("profile").style.display = "none";
-                document.getElementById("manage").style.display = "none";
-                document.getElementById("join").style.display = "none";
-            }
-
-        })
-    });*/
->>>>>>> b84e99e88bd33327ec45600348187876a6c5101e
 </script>
 </html>

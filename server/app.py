@@ -1,3 +1,4 @@
+from eventlet.green import os
 from flask import Flask, render_template
 from config import Config
 from os import path, getcwd
@@ -15,6 +16,12 @@ app = Flask(__name__,
             static_folder=STATIC_DIR)
 # load config
 app.config.from_object(Config)
+
+sio = SocketIO(app)
+
+# load config
+app.config.from_object(Config)
+app.config['POLLS_VOTE_URL'] = os.environ.get('POLLS_VOTE_URL')
 
 sio = SocketIO(app)
 
@@ -36,4 +43,3 @@ def create_app():
     app.register_blueprint(user_api)
 
     return app
-
