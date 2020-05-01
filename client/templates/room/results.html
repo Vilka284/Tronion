@@ -1,12 +1,20 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-<title>{{ data.question }}</title>
-</head>
-<body>
-<h1>Results for</h1>
-{{ data.question }}
-
-
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='scripts/polls/polls.css') }}">
+    </head>
+    <body>
+        <h1 id="question">Are you understanding the lecture?</h1>
+        <h2>Vote at <a href="{{ vote_url }}" target="_blank">{{ vote_url }}</a></h2>
+        <div id="charts">
+            <div>
+                <h3>Understanding chart | votes:<span id="s1">0</span></h3>
+                <canvas id="q1"></canvas>
+            </div>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+        <script src="{{ url_for('static', filename='scripts/polls/main.js') }}"></script>
+    </body>
 </html>
