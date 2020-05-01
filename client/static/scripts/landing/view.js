@@ -7,10 +7,7 @@ function isLogged() {
         dataType: "json",
         headers: {"auth_token": localStorage.getItem('auth_token')},
         success: function (data) {
-            //Set token to current user
-            localStorage.setItem('auth_token', data.token);
-            localStorage.setItem('id_user', data.id_user);
-            localStorage.setItem('loggedin', 1);
+            console.log(data);
         },
         statusCode: {
             400: function () {
