@@ -5,6 +5,8 @@
     <title>Tronion</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="styles/index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/landing/view.js"></script>
 </head>
 <body>
 <div class="topnav" id="header">
@@ -98,6 +100,7 @@
         }
     };
 
+
     function view() {
         var isLoggedIn = localStorage.getItem('loggedin');
 
@@ -120,24 +123,5 @@
 
     window.onload = view();
 
-    /*$('#logout').on('submit', function e() {
-        e.preventDefault();
-
-        $ajax({
-            url: '/logout',
-            dataType: 'json',
-            success: function (data) {
-                localStorage.setItem('loggedin', 0);
-
-                document.getElementById("signin").style.visibility = "visible";
-                document.getElementById("signup").style.visibility = "visible";
-                document.getElementById("or").style.visibility = "visible";
-                document.getElementById("profile").style.display = "none";
-                document.getElementById("manage").style.display = "none";
-                document.getElementById("join").style.display = "none";
-            }
-
-        })
-    });*/
 </script>
 </html>

@@ -41,10 +41,10 @@ def join():
 def manage():
     return render_template('room/manage.html')
 
-
 @app.route('/room/<int:id_room>')
-def room(id_room):
-    return render_template(('room/room.html'))
+#@Auth.login_required
+def room(id_room=None):
+    return render_template(('room/room.html'), id_room=id_room)
 
 
 @app.route('/create_poll')
