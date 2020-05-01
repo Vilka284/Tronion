@@ -12,7 +12,12 @@ STATIC_DIR = path.abspath(getcwd()) + '/client/static/'
 
 app = Flask(__name__,
             template_folder=TEMPLATE_DIR,
+
             static_folder=STATIC_DIR)
+# load config
+app.config.from_object(Config)
+
+sio = SocketIO(app)
 
 # load config
 app.config.from_object(Config)

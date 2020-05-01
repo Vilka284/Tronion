@@ -4,8 +4,8 @@ from flask import Blueprint
 from jsonschema import exceptions
 from jsonschema import validate
 
-from server.app import app, db
-from server.auth_jwt import *
+from server.app import db
+from server.auth_jwt import Auth
 from .schemas import *
 
 import hashlib
@@ -36,7 +36,7 @@ def user_object(user):
 def create():
     """
     Create user function
-    """
+      """
 
     data = request.json
 
@@ -76,8 +76,9 @@ def login():
     """
     Login user function
     """
+
     data = request.json
-    print(data)
+
     # validation of the received data
     if not validate_json(login_schema, data):
         return jsonify({"error": "Data is invalid"}), 400
@@ -86,7 +87,6 @@ def login():
     user = db.select_rows(
         f"select * from account where email='{data['email']}'"
     )[0]
-    print(user)
     if user is None:
         return jsonify(
             {"error": "User with this email addres not exists"}
@@ -105,7 +105,6 @@ def login():
         "user": user_object(user),
         "token": token,
     }
-
     return jsonify(response), 200
 
 
@@ -146,5 +145,4 @@ def build_profile():
         "id_user": user[0],
         "user": user_object(user),
     }
-
     return jsonify(response), 200

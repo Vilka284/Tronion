@@ -22,7 +22,7 @@ class Auth:
 
         try:
             payload = {
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=1),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
                 'iat': datetime.datetime.utcnow(),
                 'sub': user_id
             }
@@ -52,7 +52,6 @@ class Auth:
             user_id = None
 
             token = request.headers["auth_token"]
-
             # decode token
             try:
                 payload = jwt.decode(token, Config.SECRET_KEY)

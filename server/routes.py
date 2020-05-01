@@ -2,6 +2,8 @@ from flask import render_template, current_app, url_for
 from server.app import app
 from server.auth_jwt import Auth
 
+import os
+
 
 @app.route('/')
 def index():
@@ -67,6 +69,7 @@ def show_results():
         url_for('vote', _external=True)
 
     return render_template('room/results.html', vote_url=vote_url)
+
 
 
 

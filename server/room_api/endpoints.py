@@ -1,15 +1,20 @@
 from flask import request
 from flask import jsonify
 from flask import Blueprint
+from flask import g
+from flask_socketio import join_room as jr
 
 from random import randrange
 
-from server.app import db
+from server.app import db, sio
 from server.user_api.endpoints import validate_json
-from server.auth_jwt import *
+from server.auth_jwt import Auth
 from .schemas import *
 
+
 room_api = Blueprint("room_api", __name__)
+
+from .chat import handle_join, send_room_message
 
 
 def get_room(code):
@@ -37,6 +42,7 @@ def rand_code():
     return rand_code()
 
 
+
 def get_user_rooms(id_user):
     """
     Get rooms by user id
@@ -46,7 +52,7 @@ def get_user_rooms(id_user):
     """
     rooms = []
     user_room = db.select_rows(
-        f"select * from user_has_room where user_id = {id_user}"
+        f"select * from room_has_user where user_id = {id_user}"
     )
     if user_room is not None:
         message = 'Here is your rooms:'
@@ -56,8 +62,12 @@ def get_user_rooms(id_user):
             ))
     else:
         message = 'You have no rooms! Do you want to create one?'
+    return rooms, message
 
-    return (rooms, message)
+
+# @room_api.route('/update_info', methods=["GET", "POST"])
+# def update_info():
+#     return jsonify({"message": "its work!"})
 
 
 @room_api.route('/create_room', methods=["POST"])
@@ -71,21 +81,19 @@ def create_room():
 
     data = request.json
 
-    print(data)
-
     # validation of the received data
     if not validate_json(data, room_create_schema):
         return jsonify({"error": "Data is invalid"}), 400
 
     code = rand_code()
-
+    print(data)
     db.insert_data(
         f"""
             insert into room (id_room, name_room, note) values (
-                   '{code}', 
-                   '{data['name']}', 
-                   '{data['description']}'
-               )"""
+               '{code}', 
+               '{data['name']}', 
+               '{data['description']}'
+            )"""
     )
     db.commit()
 
@@ -93,10 +101,10 @@ def create_room():
     # Інакше запутатись можна
     db.insert_data(
         f"""
-                insert into user_has_room (user_id, room_id) values ( 
-                       '{data['id_user']}', 
-                       '{code}'
-                   )"""
+            insert into room_has_user (user_id, room_id) values ( 
+                   '{data['id_user']}', 
+                   '{code}'
+               )"""
     )
     db.commit()
 
@@ -104,31 +112,6 @@ def create_room():
         "result": "ok"
     }
 
-    return jsonify(response), 200
-
-
-@room_api.route("/join_room", methods=["POST"])
-@Auth.login_required
-def join_room():
-    """
-    Join room function
-
-    :return:
-    """
-    data = request.json
-    code = data['code']
-
-    db_data = db.select_rows(
-        f"select * from room where id_room = {code}"
-    )
-
-    if db_data is None:
-        return jsonify({"error": "There is no room with this code"}), 404
-
-    response = {
-        "result": "ok",
-        "room_data": db_data[0]
-    }
     return jsonify(response), 200
 
 
@@ -150,6 +133,39 @@ def update_manage():
         "rooms": rooms
     }
 
+    return jsonify(response), 200
+
+
+@room_api.route("/join_room", methods=["POST"])
+@Auth.login_required
+def join_room():
+    """
+    Join room function
+
+    :return:
+    """
+
+
+    print(g.user["user_id"])
+    # print(req)
+    # print(request.sid)
+    # join_room(req.sid, 10219)
+    data = request.json
+    code = data['code']
+
+
+    db_data = db.select_rows(
+        f"select * from room where id_room = {code}"
+    )
+
+    if db_data is None:
+        return jsonify({"error": "There is no room with this code"}), 404
+
+
+    response = {
+        "result": "ok",
+        "room_data": db_data[0]
+    }
     return jsonify(response), 200
 
 
