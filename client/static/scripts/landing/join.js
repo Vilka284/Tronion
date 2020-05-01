@@ -5,6 +5,6 @@ document.getElementById("join_button").onclick = function e() {
         if (isLoggedIn == 1) {
             location.replace('/join');
         } else {
-            location.replace('/login')
+            location.replace('/login');
         }
     };

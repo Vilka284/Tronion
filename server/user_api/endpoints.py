@@ -124,3 +124,27 @@ def is_logged():
     if data == 0:
         return response, 400
     return response, 200
+
+
+@user_api.route("/build_profile", methods=["POST"])
+@Auth.login_required
+def build_profile():
+    data = request.json
+    print(data)
+
+    user = db.select_rows(
+        f"select * from account where id_user='{data['id_user']}'"
+    )[0]
+    print(user)
+    if user is None:
+        return jsonify(
+            {"error": "User with this email addres not exists"}
+        ), 400
+
+    response = {
+        "result": "ok",
+        "id_user": user[0],
+        "user": user_object(user),
+    }
+
+    return jsonify(response), 200
