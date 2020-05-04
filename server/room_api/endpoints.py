@@ -124,6 +124,7 @@ def update_manage():
     :return:
     """
     data = request.json
+    print(request.headers)
     rooms, message = get_user_rooms(data["id_user"])
 
     print(rooms)
@@ -152,7 +153,7 @@ def join_room():
     # join_room(req.sid, 10219)
     data = request.json
     code = data['code']
-
+    print(request.headers)
 
     db_data = db.select_rows(
         f"select * from room where id_room = {code}"
