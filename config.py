@@ -5,7 +5,7 @@ load_dotenv()
 
 
 class Config(object):
-    DEBUG = True
+    DEBUG = False
     SECRET_KEY = environ.get("SECRET_KEY")
 
 
