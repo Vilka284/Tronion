@@ -1,4 +1,4 @@
-var io = io.connect(location.origin + '/polls');
+var sio = io.connect(location.origin + '/polls');
 
 // register a vote as a result of a click event
 function onButtonClick() {
