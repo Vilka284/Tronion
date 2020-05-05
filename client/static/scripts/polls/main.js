@@ -1,8 +1,8 @@
 var charts = [];
-var socketio = io.connect(location.origin + '/polls-admin');
+var sio = io.connect(location.origin + '/polls-admin');
 
 // the server sends new results, so refresh all charts with them
-socketio.on('update-charts', function(results) {
+sio.on('update-charts', function(results) {
     for (var question in results) {
         for (var i = 0; i < charts.length; i++) {
             if (question == charts[i].canvas.id) {
@@ -16,8 +16,7 @@ socketio.on('update-charts', function(results) {
     }
 });
 
-// chart.js plugin to provide labels at the top of each bar
-// from http://www.chartjs.org/samples/latest/advanced/data-labelling.html
+
 Chart.plugins.register({
     afterDatasetsDraw: function(chart, easing) {
         var ctx = chart.ctx;

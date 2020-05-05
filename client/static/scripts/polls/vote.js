@@ -1,4 +1,4 @@
-var socketio = io.connect(location.origin + '/polls');
+var io = io.connect(location.origin + '/polls');
 
 // register a vote as a result of a click event
 function onButtonClick() {
@@ -7,7 +7,7 @@ function onButtonClick() {
         if (q[j] == this) {
             q[j].classList.remove('not-chosen');
             q[j].classList.add('chosen');
-            socketio.emit('vote', this.classList[0], j);
+            sio.emit('vote', this.classList[0], j);
         }
         else {
             q[j].classList.remove('chosen');
@@ -26,7 +26,7 @@ window.onload = function() {
 
 // send current votes to the server
 // (this is useful in case the Socket.IO connection breaks and is re-established)
-socketio.on('connect', function() {
+sio.on('connect', function() {
     var choices = document.getElementsByClassName('choice');
     var votes = {};
     for (var i = 0; i < choices.length; i++) {
@@ -38,5 +38,5 @@ socketio.on('connect', function() {
             }
         }
     }
-    socketio.emit('votes', votes);
+    sio.emit('votes', votes);
 });
