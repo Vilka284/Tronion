@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename='scripts/polls/polls.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/polls.css') }}">
     </head>
     <body>
         <h1 id="question">Are you understanding the lecture?</h1>
@@ -14,7 +14,7 @@
             </div>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.slim.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
         <script src="{{ url_for('static', filename='scripts/polls/main.js') }}"></script>
     </body>
 </html>
