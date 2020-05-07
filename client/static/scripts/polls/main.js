@@ -2,13 +2,13 @@ var charts = [];
 var sio = io.connect(location.origin + '/polls-admin');
 
 // the server sends new results, so refresh all charts with them
-sio.on('update-charts', function(results) {
+sio.on('update-charts', function (results) {
     for (var question in results) {
         for (var i = 0; i < charts.length; i++) {
             if (question == charts[i].canvas.id) {
                 charts[i].data.datasets[0].data = results[question];
                 charts[i].update();
-                sum = results[question].reduce(function(a, b) { return a + b }, 0);
+                sum = results[question].reduce(function (a, b) { return a + b }, 0);
                 document.getElementById('s' + (i + 1)).innerHTML = sum;
                 break;
             }
@@ -18,12 +18,12 @@ sio.on('update-charts', function(results) {
 
 
 Chart.plugins.register({
-    afterDatasetsDraw: function(chart, easing) {
+    afterDatasetsDraw: function (chart, easing) {
         var ctx = chart.ctx;
         chart.data.datasets.forEach(function (dataset, i) {
             var meta = chart.getDatasetMeta(i);
             if (!meta.hidden) {
-                meta.data.forEach(function(element, index) {
+                meta.data.forEach(function (element, index) {
                     if (dataset.data[index] > 0) {
                         // Draw the text in black, with the specified font
                         ctx.fillStyle = 'rgb(0, 0, 0)';
@@ -57,7 +57,7 @@ function makeChart(id, labels) {
         labels: labels,
         datasets: [
             {
-                type: 'bar',
+                type: 'doughnut',
                 data: new Array(labels.length).fill(0),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
@@ -79,7 +79,7 @@ function makeChart(id, labels) {
         ]
     };
     return new Chart(ctx, {
-        type: 'bar',
+        type: 'doughnut',
         data: barChartData,
         options: {
             responsive: true,
@@ -105,7 +105,7 @@ function makeChart(id, labels) {
 }
 
 // create the four bar charts
-window.onload = function() {
+window.onload = function () {
     charts.push(makeChart('q1', ['Understand', 'Not exactly', 'Definitely not']));
 
 };

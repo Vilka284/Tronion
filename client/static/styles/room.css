@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
     padding: 0;
     margin: 0;
     scroll-behavior: smooth;
@@ -85,8 +86,80 @@ html, body {
 
 }
 
+.main {
+    padding-top: 70px;
+}
 
 .topnav a.button:hover {
     background-color: #ddd;
     color: black;
+}
+
+header nav a {
+    color: white;
+}
+
+.question {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.question p {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.chat-button {
+    border: 0;
+    position: fixed;
+    left: 92%;
+    top: 90%;
+    transform: translate(-92%, -90%);
+    outline: none;
+}
+
+.chat-button:focus {
+    outline: none;
+
+}
+
+.chat {
+    border: 2px solid #dddddd;
+    height: 840px;
+}
+
+.chatHeader p {
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.chatMessages {
+    height: 700px;
+    border: 1px solid #dddddd;
+    overflow-y: scroll;
+}
+
+input[type='text'] {
+    width: 85%;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.chatBottom {
+    margin-top: 20px;
+}
+
+.buttonsClass {
+    padding-top: 60px;
+}
+
+.buttonsClass button {
+    width: 200px;
+    height: 50px;
+    font-size: 14 px;
+}
+
+
+.space {
+    margin-top: 500px;
 }

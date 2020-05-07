@@ -5,12 +5,15 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>Tronion</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../styles/room.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
-            integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function () {
             // namespace = '/test';
@@ -26,90 +29,121 @@
             var current_room = $(location).attr('pathname').split("/").pop()
 
             socket.on('connect', function () {
-                socket.emit('join', {room: current_room})
+                socket.emit('join', {
+                    room: current_room
+                })
                 return false;
             });
 
             socket.on('response', function (msg, cb) {
-                $('#log').append('<br>' + $('<div/>').text(msg.user + ': ' + msg.data + ' ' + msg.send_on).html());
+                $('#log').append('<br>' + $('<div/>').text(msg.user + ': ' + msg.data + ' ' + msg
+                    .send_on).html());
                 if (cb)
                     cb();
             });
 
             $('form#send_room').submit(function (event) {
-                socket.emit('my_room_event', {room: current_room, user: user_id, data: $('#room_data').val()});
+                socket.emit('my_room_event', {
+                    room: current_room,
+                    user: user_id,
+                    data: $('#room_data').val()
+                });
                 return false;
             });
         });
     </script>
-
-    <link rel="stylesheet" type="text/css" href="../styles/room.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </head>
 
 <body>
-<div class="topnav" id="header">
-    <a class="tronion" href="/">
-			<span>
-				Tronion
-			</span>
-    </a>
 
-    <img src="../img/onion.png" title="Thinking onion" align="left">
+    <div class="topnav" id="header">
+        <a class="tronion" href="/">
+            <span>
+                Tronion
+            </span>
+        </a>
 
-    <a class="button" ref="#profile">
-        <img src="../img/prof.png" title="Profile" align="right">
-    </a>
+        <img src="../img/onion.png" title="Thinking onion" align="left">
 
-    <a class="button" href="/manage">
-        <span>Manage</span>
-    </a>
-    <a class="button" href="/join">
-        <span>Join</span>
-    </a>
+        <a class="button" ref="#profile">
+            <img src="../img/prof.png" title="Profile" align="right">
+        </a>
 
-</div>
+        <a class="button" href="/manage">
+            <span>Manage</span>
+        </a>
+        <a class="button" href="/join">
+            <span>Join</span>
+        </a>
 
-    <form id="send_room" method="POST" action='#'>
-        <!--<input type="text" name="room_name" id="room_name" placeholder="Room Name">-->
+    </div>
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="col-sm-12 text-center question">
+                    <p> So how are you feeling,everything getting on?</p>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <canvas id="currentResultChart" width="400px" height="240px"></canvas>
+                        <div class="col-sm-12 buttonsClass">
+                            <div class="row">
+                                <div class="col-sm-4 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-success">Understand</button>
+                                </div>
+                                <div class="col-sm-4 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-warning">Not sure</button>
+                                </div>
+
+                                <div class="col-sm-4 d-flex justify-content-center">
+                                    <button type="button" class="btn btn-danger">Don`t Understand</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <canvas id="timeLineChart" width="400px" height="240px"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat col-sm-3" id="chat">
+                <div class="chatHeader">
+                    <p class="text-center">Chat</p>
+                </div>
+                <div class="chatMessages">
+                    <div>
+                        <p>27.12.2000</p>
+                        <p>danylo</p>
+                        <p>message dsadasdsadsadas</p>
+                    </div>
+                </div>
+                <div class="chatBottom">
+                    <form action="">
+                        <input type="text" name="text" id="text" placeholder="message here">
+                        <button type="button" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <form id="send_room" method="POST" action='#'>
         <input type="text" name="room_data" id="room_data" placeholder="Message">
         <input type="submit" value="Send to Room">
     </form>
     <h2>Receive:</h2>
-    <div id="log"></div>
+    <div id="log"></div> -->
 
 
+    <script src="{{ url_for('static', filename='scripts/room/room.js') }}"></script>
 
-<div class="chart-container" style=" height:40%; width:40%">
-    <canvas id="myChart" width="200px" height="200px"></canvas>
-</div>
-<script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: ['Red', 'Green', 'Yellow',],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 5],
-                backgroundColor: [
-                    'yellow',
-                    'green',
-                    'red',
-                ],
-                borderColor: [
-                    'yellow',
-                    'green',
-                    'red',
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {}
-    });
-</script>
 
 
 </body>
