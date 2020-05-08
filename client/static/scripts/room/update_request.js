@@ -1,7 +1,4 @@
-$(document).on('submit', '#update-form', function (a) {
-    a.preventDefault();
-
-
+function update() {
 
     $.ajax({
         method: "POST",
@@ -39,4 +36,11 @@ $(document).on('submit', '#update-form', function (a) {
     });
 
 
+}
+
+$(document).on('submit', '#update-form', function(a){
+    a.preventDefault();
+    update();
 });
+
+document.onload = update();
