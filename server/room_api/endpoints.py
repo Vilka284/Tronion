@@ -87,26 +87,31 @@ def create_room():
 
     code = rand_code()
     print(data)
-    db.insert_data(
-        f"""
-            insert into room (id_room, name_room, note) values (
-               '{code}', 
-               '{data['name']}', 
-               '{data['description']}'
-            )"""
-    )
-    db.commit()
+    try:
+        db.insert_data(
+            f"""
+                    insert into room (id_room, name_room, note) values (
+                       '{code}', 
+                       '{data['name']}', 
+                       '{data['description']}'
+                    )"""
+        )
+        db.commit()
 
-    # Давайте наступного разу називати конкретно id_вещь, або вещь_id
-    # Інакше запутатись можна
-    db.insert_data(
-        f"""
-            insert into room_has_user (user_id, room_id) values ( 
-                   '{data['id_user']}', 
-                   '{code}'
-               )"""
-    )
-    db.commit()
+        # Давайте наступного разу називати конкретно id_вещь, або вещь_id
+        # Інакше запутатись можна
+        db.insert_data(
+            f"""
+                    insert into room_has_user (user_id, room_id) values ( 
+                           '{data['id_user']}', 
+                           '{code}'
+                       )"""
+        )
+        db.commit()
+    except:
+        from sys import exc_info
+        print(exc_info()[0])
+        return jsonify({"error": "Catch DB exception"}), 400
 
     response = {
         "result": "ok"

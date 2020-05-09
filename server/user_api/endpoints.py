@@ -135,10 +135,16 @@ def build_profile():
     data = request.json
     print(data)
 
-    user = db.select_rows(
-        f"select * from account where id_user='{data['id_user']}'"
-    )[0]
-    print(user)
+    try:
+        user = db.select_rows(
+            f"select * from account where id_user='{data['id_user']}'"
+        )[0]
+        print(user)
+    except:
+        from sys import exc_info
+        print(exc_info()[0])
+        return jsonify({"error": "Catch DB exception"}), 400
+
     if user is None:
         return jsonify(
             {"error": "User with this email addres not exists"}
