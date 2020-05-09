@@ -9,19 +9,45 @@ function update() {
         headers: {"auth_token": localStorage.getItem('auth_token')},
         success: function (data) {
             $('#message').remove();
+            $('#header1').remove();
             var rooms = data.rooms;
+            var Header = document.createElement('h1');
+            var text = document.createTextNode(data.message);
+            // add text to header
+            Header.appendChild(text);
+            Header.id = 'header1';
+            Header.className = 'header1';
             var iDiv = document.createElement('div');
             iDiv.id = 'message';
             iDiv.className = 'message';
+            iDiv.style = 'display: grid;\n' +
+                '  grid-column-gap: 30px;\n' +
+                '  grid-template-columns: auto auto auto;\n' +
+                '  background-color: #dfe3f3;\n' +
+                '  padding: 10px;';
+            //Add main div and header
+            document.getElementsByTagName('body')[0].appendChild(Header);
             document.getElementsByTagName('body')[0].appendChild(iDiv);
-            iDiv.innerHTML = `${data.message}`;
 
-            for (var i = 0; i < rooms.length; i++) {
-                var innerDiv = document.createElement('div');
-                innerDiv.id = 'room-data';
-                innerDiv.className = `room-data-${i}`;
-                iDiv.appendChild(innerDiv);
-                innerDiv.innerHTML = `${rooms[i]}`;
+
+            //Dynamic create room data elements
+            //names array are for description of tag
+            var names = ['Access code: ', 'Name: ', 'Description: '];
+            for (var room = 0; room < rooms.length; room++) {
+                for (var element = 0; element < 3; element++) {
+                    var innerDiv = document.createElement('div');
+                    var text = names[element];
+                    var info = rooms[room][element];
+                    innerDiv.id = `room-data-${room}-${element}`;
+                    innerDiv.className = 'room-data';
+                    innerDiv.style = 'background-color: rgba(255, 255, 255, 0.8);\n' +
+                        '  border: 1px solid rgba(0, 0, 0, 0.8);\n' +
+                        '  padding: 15px;\n' +
+                        '  font-size: 20px;\n' +
+                        '  text-align: center;';
+                    iDiv.appendChild(innerDiv);
+                    innerDiv.innerHTML = text + info;
+                }
             }
 
         },
