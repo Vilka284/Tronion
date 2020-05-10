@@ -31,13 +31,15 @@
             socket.on('connect', function () {
                 socket.emit('join', {
                     room: current_room
-                })
+                });
                 return false;
             });
 
             socket.on('response', function (msg, cb) {
-                $('#log').append('<br>' + $('<div/>').text(msg.user + ': ' + msg.data + ' ' + msg
+                $.each(msg, function () {
+                    $('#log').append('<br>' + $('<div/>').text(this.user + ': ' + this.data + ' ' + this
                     .send_on).html());
+                });
                 if (cb)
                     cb();
             });
@@ -47,12 +49,9 @@
                     room: current_room,
                     user: user_id,
                     data: $('#room_data').val()
-                });
-                // document.send_room.reset();
-                document.getElementById('send_room').value='';
+                });git
                 return false;
             });
-            // document.send_room.reset();
 
         });
     </script>
@@ -137,16 +136,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- <form id="send_room" method="POST" action='#'>
-        <input type="text" name="room_data" id="room_data" placeholder="Message">
-        <input type="submit" value="Send to Room">
-    </form>
-    <h2>Receive:</h2>
-    <div id="log"></div> -->
-
-
     <script src="{{ url_for('static', filename='scripts/room/room.js') }}"></script>
 
 

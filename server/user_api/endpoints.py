@@ -132,9 +132,15 @@ def is_logged():
 def build_profile():
     data = request.json
 
-    user = db.select_rows(
-        f"select * from account where id_user='{data['id_user']}'"
-    )[0]
+    try:
+        user = db.select_rows(
+            f"select * from account where id_user='{data['id_user']}'"
+        )[0]
+        print(user)
+    except:
+        from sys import exc_info
+        print(exc_info()[0])
+        return jsonify({"error": "Catch DB exception"}), 400
 
     if user is None:
         return jsonify(
