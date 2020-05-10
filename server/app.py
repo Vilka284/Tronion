@@ -16,7 +16,7 @@ app = Flask(__name__,
 
 # load config
 app.config.from_object(Config)
-app.config['POLLS_VOTE_URL'] = os.environ.get('POLLS_VOTE_URL')
+# app.config['POLLS_VOTE_URL'] = os.environ.get('POLLS_VOTE_URL')
 
 sio = SocketIO(app)
 
@@ -28,12 +28,12 @@ db.connection()
 def create_app():
     from server.user_api.endpoints import user_api
     from server.room_api.endpoints import room_api
-    from server.poll_api.endpoints import poll_api
+    # from server.poll_api.endpoints import poll_api
 
     from server import routes
     # reg blueprints
     app.register_blueprint(user_api)
     app.register_blueprint(room_api)
-    app.register_blueprint(poll_api, url_prefix='/polls')
+    # app.register_blueprint(poll_api, url_prefix='/polls')
 
     return app

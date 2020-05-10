@@ -48,8 +48,12 @@
                     user: user_id,
                     data: $('#room_data').val()
                 });
+                // document.send_room.reset();
+                document.getElementById('send_room').value='';
                 return false;
             });
+            // document.send_room.reset();
+
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
@@ -116,16 +120,17 @@
                     <p class="text-center">Chat</p>
                 </div>
                 <div class="chatMessages">
-                    <div>
-                        <p>27.12.2000</p>
-                        <p>danylo</p>
-                        <p>message dsadasdsadsadas</p>
-                    </div>
+<!--                    <div>-->
+<!--                        <p>27.12.2000</p>-->
+<!--                        <p>danylo</p>-->
+<!--                        <p>message dsadasdsadsadas</p>-->
+<!--                    </div>-->
+                    <div id="log"></div>
                 </div>
                 <div class="chatBottom">
-                    <form action="">
-                        <input type="text" name="text" id="text" placeholder="message here">
-                        <button type="button" class="btn btn-primary">Send</button>
+                    <form id="send_room" method="POST" action=''>
+                        <input type="text" name="room_data" id="room_data" placeholder="Message">
+                        <button type="submit" class="btn btn-primary" onclick="this.value=''">Send</button>
                     </form>
                 </div>
 
