@@ -86,7 +86,7 @@ def create_room():
         return jsonify({"error": "Data is invalid"}), 400
 
     code = rand_code()
-    print(data)
+
     try:
         db.insert_data(
             f"""
@@ -129,11 +129,7 @@ def update_manage():
     :return:
     """
     data = request.json
-    print(request.headers)
     rooms, message = get_user_rooms(data["id_user"])
-
-    print(rooms)
-
     response = {
         "message": message,
         "rooms": rooms
@@ -151,14 +147,8 @@ def join_room():
     :return:
     """
 
-
-    print(g.user["user_id"])
-    # print(req)
-    # print(request.sid)
-    # join_room(req.sid, 10219)
     data = request.json
     code = data['code']
-    print(request.headers)
 
     db_data = db.select_rows(
         f"select * from room where id_room = {code}"

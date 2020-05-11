@@ -17,7 +17,6 @@ def validate_json(schema, data):
     try:
         validate(instance=data, schema=schema)
     except exceptions.ValidationError as e:
-        print(e)
         return False
     return True
 
@@ -119,7 +118,6 @@ def logout_user():
 @Auth.login_required
 def is_logged():
     token = request.headers["auth_token"]
-    print(request.headers)
 
     if token == 0:
         response = {'message': 'token is missing'}
@@ -133,7 +131,6 @@ def is_logged():
 @Auth.login_required
 def build_profile():
     data = request.json
-    print(data)
 
     try:
         user = db.select_rows(
