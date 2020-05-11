@@ -13,8 +13,11 @@ function build_profile() {
                 console.log(data);
             },
             statusCode: {
-                400: function () {
-
+                400: function (data) {
+                    if (data.message == 'token expired' || 'Invalid token, please try again'){
+                        localStorage.setItem('auth_token', 0);
+                        location.replace('/login');
+                    }
                 }
             },
             error: function (err) {

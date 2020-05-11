@@ -26,8 +26,12 @@ $(document).on('submit', '#join-form', function (e) {
                 localStorage.setItem('user_in_room', room_code);
             },
             statusCode: {
-                400: function () {
+                400: function (data) {
                     $('#msg').html('<span style="color: red;">Bad request</span>');
+                    if (data.message == 'token expired' || 'Invalid token, please try again'){
+                        localStorage.setItem('auth_token', 0);
+                        location.replace('/login');
+                    }
                 },
                 404: function () {
                     $('#msg').html('<span style="color: red;">There is no room with this code</span>');
