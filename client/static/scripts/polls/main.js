@@ -57,7 +57,7 @@ function makeChart(id, labels) {
         labels: labels,
         datasets: [
             {
-                type: 'doughnut',
+                type: 'bar',
                 data: new Array(labels.length).fill(0),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
@@ -79,7 +79,7 @@ function makeChart(id, labels) {
         ]
     };
     return new Chart(ctx, {
-        type: 'doughnut',
+        type: 'bar',
         data: barChartData,
         options: {
             responsive: true,

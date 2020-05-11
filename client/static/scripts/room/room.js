@@ -3,7 +3,7 @@ var ctx = document.getElementById('currentResultChart').getContext('2d');
 var last_two_min_chart = new Chart(ctx, {
     type: 'pie',
     data: {
-        labels: ['Red', 'Green', 'Yellow'],
+        labels: ['Don\'t understand', 'Understand', 'Not sure'],
         datasets: [{
             label: '# of Votes',
             data: [12, 19, 3],
@@ -28,15 +28,14 @@ var timeline = document.getElementById('timeLineChart').getContext('2d');
 var time_line_chart = new Chart(timeline, {
     type: 'line',
     data: {
-        labels: ['Red', 'Green', 'Yellow', 'Blue'],
+        labels: ['Don\'t understand', 'Understand', 'Not sure'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 100],
+            data: [12, 19, 3],
             backgroundColor: [
                 'red',
                 'green',
                 'yellow',
-                'blue'
             ],
             borderColor: [
                 'red',
