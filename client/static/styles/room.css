@@ -136,7 +136,7 @@ header nav a {
 .chatMessages {
     height: 700px;
     border: 1px solid #dddddd;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
 }
 
 input[type='text'] {
@@ -163,3 +163,59 @@ input[type='text'] {
 .space {
     margin-top: 500px;
 }
+
+.wrapper {
+	/*float: right;*/
+	/*background: #e8efef;*/
+	width: 100%;
+	height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: scroll;
+	overflow-x: hidden;
+	position: relative;
+    padding: 10px;
+}
+
+
+
+.container p,ol,ul,li{
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	vertical-align:baseline;
+}
+
+.wrapper::-webkit-scrollbar {
+	width: 5px;
+	background: transparent;
+}
+.wrapper::-webkit-scrollbar-thumb {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.container {
+  border: 0;
+  background-color: grey; /*#f1f1f1 */
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+li {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    /*float: right;*/
+}
+
+p {
+    margin: 0;
+}
+

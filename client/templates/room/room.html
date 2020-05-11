@@ -37,8 +37,15 @@
 
             socket.on('response', function (msg, cb) {
                 $.each(msg, function () {
-                    $('#log').append('<br>' + $('<div/>').text(this.user + ': ' + this.data + ' ' + this
-                    .send_on).html());
+                        $('.wrapper ul').append(
+                            '<li><div class="header">' +
+                            '<strong class="primary-font">' + this.user  +'</strong>' +
+                            '<small class="pull-right text-muted">' +
+                            '<span class="glyphicon glyphicon-time"></span>' +
+                            this.send_on + '</small>' +
+                            '</div>' +
+                            '<p>' + this.data + '</p></li>'
+                    );
                 });
                 if (cb)
                     cb();
@@ -49,7 +56,7 @@
                     room: current_room,
                     user: user_id,
                     data: $('#room_data').val()
-                });git
+                });
                 return false;
             });
 
@@ -115,17 +122,25 @@
             </div>
 
             <div class="chat col-sm-3" id="chat">
+
                 <div class="chatHeader">
                     <p class="text-center">Chat</p>
                 </div>
                 <div class="chatMessages">
-<!--                    <div>-->
-<!--                        <p>27.12.2000</p>-->
-<!--                        <p>danylo</p>-->
-<!--                        <p>message dsadasdsadsadas</p>-->
-<!--                    </div>-->
-                    <div id="log"></div>
-                </div>
+                        <div class="wrapper">
+                            <ul>
+                                <!--template-->
+    <!--                            <li>-->
+    <!--                                <div class="header">-->
+    <!--                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">-->
+    <!--                                    <span class="glyphicon glyphicon-time"></span>12 mins ago</small>-->
+    <!--                                </div>-->
+    <!--                                <p>Hello. How are you today?</p>-->
+    <!--                            </li>-->
+                            </ul>
+                        </div>
+
+                    </div>
                 <div class="chatBottom">
                     <form id="send_room" method="POST" action=''>
                         <input type="text" name="room_data" id="room_data" placeholder="Message">
@@ -137,7 +152,6 @@
         </div>
     </div>
     <script src="{{ url_for('static', filename='scripts/room/room.js') }}"></script>
-
 
 
 </body>

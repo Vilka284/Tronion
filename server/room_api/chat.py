@@ -1,4 +1,3 @@
-from flask_socketio import Namespace
 from flask_socketio import leave_room
 from flask_socketio import join_room
 from flask_socketio import emit
@@ -24,7 +23,7 @@ def get_user_by_id(id):
 
 def get_messages_story(room_id):
     """
-    Get the last 200(u can change this value if u want) messages by room id.
+    Get the last 50(u can change this value if u want) messages by room id.
     Messages sorted by send date
     """
     messages = db.select_rows(f"""
@@ -32,20 +31,19 @@ def get_messages_story(room_id):
         message inner join room on
         room.id_room = message.room_id
         where room.id_room = {int(room_id)}
-        order by date_send desc limit 200;
+        order by date_send desc limit 20;
     """)
 
     response = []
     if messages is not None:
         for item in messages:
             response.append({
-                    "user": item[2],
+                    "user": get_user_by_id(item[2]).title(),
                     "data": item[0],
                     "send_on": item[1].strftime("%H:%M")
                 }
             )
-    return response
-
+    return response[::-1]
 
 
 @Auth.login_required
@@ -60,11 +58,9 @@ def handle_join(data):
 @Auth.login_required
 @sio.on('my_room_event')
 def send_room_message(message):
-    print(message)
+
     if message["data"]:
         send_on = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(send_on)
-        # datetime.now().strftime("%H:%M")
 
         db.insert_data(
             f"""
@@ -80,9 +76,9 @@ def send_room_message(message):
         )
         db.commit()
         response = [{
-                "user": get_user_by_id(message["user"]).upper(),
+                "user": get_user_by_id(message["user"]).title(),
                 "data": message['data'],
-                "send_on": send_on
+                "send_on": send_on.split(' ')[1][:5] # негарно виглядає але працює
             }
         ]
 
