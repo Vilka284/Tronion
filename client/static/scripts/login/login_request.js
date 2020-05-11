@@ -16,6 +16,7 @@
                     localStorage.setItem('auth_token', data.token);
                     localStorage.setItem('id_user', data.id_user);
                     localStorage.setItem('loggedin', 1);
+                    localStorage.setItem('user_in_room', 0);
                     //Say hi!
                     var user_name = data.user.first_name;
 
