@@ -52,8 +52,12 @@ function update() {
 
         },
         statusCode: {
-            400: function () {
+            400: function (data) {
                 $('#msg').html('<span style="color: red;">Bad request parameters</span>');
+                if (data.message == 'token expired' || 'Invalid token, please try again'){
+                        localStorage.setItem('auth_token', 0);
+                        location.replace('/login');
+                }
             }
         },
         error: function (err) {

@@ -10,10 +10,14 @@ function isLogged() {
             console.log(data);
         },
         statusCode: {
-            400: function () {
+            400: function (data) {
                 localStorage.setItem('auth_token', 0);
                 localStorage.setItem('id_user', 0);
                 localStorage.setItem('loggedin', 0);
+                if (data.message == 'token expired' || 'Invalid token, please try again'){
+                        localStorage.setItem('auth_token', 0);
+                        location.replace('/login');
+                }
             }
         },
         error: function (err) {
@@ -23,7 +27,3 @@ function isLogged() {
 }
 
 document.onload = isLogged();
-
-
-
-
