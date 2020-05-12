@@ -42,7 +42,6 @@ def rand_code():
     return rand_code()
 
 
-
 def get_user_rooms(id_user):
     """
     Get rooms by user id

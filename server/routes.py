@@ -43,6 +43,12 @@ def room(id_room=None):
     return render_template(('room/room.html'), id_room=id_room)
 
 
+@app.route('/manage/<int:id_room>')
+# @Auth.login_required
+def manage_room(id_room=None):
+    return render_template(('room/manage_room.html'), id_room=id_room)
+
+
 @app.route('/profile')
 # @Auth.login_required
 def profile():
