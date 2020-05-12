@@ -1,3 +1,4 @@
+
 var ctx = document.getElementById('currentResultChart').getContext('2d');
 var last_two_min_chart = new Chart(ctx, {
     type: 'pie',
@@ -49,3 +50,9 @@ var time_line_chart = new Chart(timeline, {
 
     }
 });
+
+
+// var objDiv = document.getElementById("wrapper");
+// objDiv.scrollTop = objDiv.scrollHeight;
+
+

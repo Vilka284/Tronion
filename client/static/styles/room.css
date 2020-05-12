@@ -172,10 +172,10 @@ input[type='text'] {
     display: flex;
     flex-direction: column-reverse;
     overflow-y: scroll;
-	overflow-x: hidden;
-	position: relative;
+    overflow-x: hidden;
     padding: 10px;
 }
+
 
 
 
@@ -207,15 +207,24 @@ input[type='text'] {
 li {
     display: flex;
     flex-direction: column;
-    max-width: 70%;
+    max-width: 100%;
     background-color: #f1f1f1;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     border-radius: 10px;
     /*float: right;*/
 }
 
-p {
+
+
+.wrapper p {
     margin: 0;
+    word-break: break-all;
 }
+.wrapper span{
+    margin-left: 5px;
+}
+
+
+
 
