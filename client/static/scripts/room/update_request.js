@@ -36,8 +36,14 @@ function update() {
             for (var room = 0; room < rooms.length; room++) {
                 for (var element = 0; element < 3; element++) {
                     var innerDiv = document.createElement('div');
-                    var text = names[element];
-                    var info = rooms[room][element];
+                    var info = null;
+                    text = names[element];
+                    if (element == 0){
+                        var code = rooms[room][element];
+                        info = `<a href="/room/${code}"> ${code} </a>`;
+                    } else {
+                        info = rooms[room][element];
+                    }
                     innerDiv.id = `room-data-${room}-${element}`;
                     innerDiv.className = 'room-data';
                     innerDiv.style = 'background-color: rgba(255, 255, 255, 0.8);\n' +

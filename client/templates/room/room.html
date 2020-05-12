@@ -25,7 +25,7 @@
             // тpеба адкватніший спосіб придумати
 
             var user_id = localStorage.getItem("id_user");
-            var current_room = $(location).attr('pathname').split("/").pop(;)
+            var current_room = $(location).attr('pathname').split("/").pop();
 
             socket.on('connect', function () {
                 socket.emit('join', {
