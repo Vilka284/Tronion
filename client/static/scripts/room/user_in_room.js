@@ -1,12 +1,15 @@
 function user_in_room(is_in_room){
 
+    var code = window.location.href.split('/');
+    code = code[code.length - 1];
     $.ajax({
             method: "POST",
             url: '/user_in_room',
             contentType: 'application/json; charset=UTF-8',
             data: JSON.stringify({
                 'is_in_room': is_in_room,
-                'id_user': localStorage.getItem('id_user')
+                'id_user': localStorage.getItem('id_user'),
+                'code': code,
             }),
             dataType: "json",
             headers: {"auth_token": localStorage.getItem('auth_token')},

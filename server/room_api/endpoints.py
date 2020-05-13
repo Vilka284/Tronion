@@ -11,7 +11,6 @@ from server.user_api.endpoints import validate_json
 from server.auth_jwt import Auth
 from .schemas import *
 
-
 room_api = Blueprint("room_api", __name__)
 
 from .chat import handle_join, send_room_message
@@ -51,7 +50,7 @@ def get_user_rooms(id_user):
     """
     rooms = []
     user_room = db.select_rows(
-        f"select * from room_has_user where user_id = {id_user}"
+        f"select * from room_has_user where user_id = {id_user} and user_status_id = 1"
     )
     if user_room is not None:
         message = 'Here is your rooms:'
@@ -72,6 +71,8 @@ def is_join(room_id, user_id):
         """
     )
     return temp
+
+
 # @room_api.route('/update_info', methods=["GET", "POST"])
 # def update_info():
 #     return jsonify({"message": "its work!"})
@@ -95,6 +96,7 @@ def create_room():
     code = rand_code()
 
     try:
+        # add room to db
         db.insert_data(
             f"""
                     insert into room (id_room, name_room, note) values (
@@ -105,8 +107,8 @@ def create_room():
         )
         db.commit()
 
-        # Давайте наступного разу називати конкретно id_вещь, або вещь_id
-        # Інакше запутатись можна
+        # add room owner
+        # status 1-admin, 2-user
         db.insert_data(
             f"""
                     insert into room_has_user (user_id, room_id, user_status_id) values ( 
@@ -119,7 +121,7 @@ def create_room():
     except:
         from sys import exc_info
         print(exc_info()[0])
-        return jsonify({"error": "Catch DB exception"}), 400
+        return jsonify({"message": "Catch DB exception"}), 400
 
     response = {
         "result": "ok"
@@ -162,17 +164,6 @@ def join_room():
         f"select * from room where id_room = {code};"
     )
 
-    # check
-    if is_join(code, user) is None:
-        db.insert_data(
-            # user_status_id: 1 - admin, 2 - moderator, 3 - user
-            f"""
-            insert into room_has_user (user_id, room_id, user_status_id)
-            values ({int(user)}, {int(code)}, 3)
-            """
-        )
-
-
     # **приклад запиту**
     # temp = db.select_rows(
     #     """
@@ -187,7 +178,15 @@ def join_room():
     if db_data is None:
         return jsonify({"error": "There is no room with this code"}), 404
 
-
+    # check
+    if is_join(code, user) is None:
+        db.insert_data(
+            # user_status_id: 1 - admin, 2 - user
+            f"""
+                insert into room_has_user (user_id, room_id, user_status_id)
+                values ({int(user)}, {int(code)}, 2)
+                """
+        )
 
     response = {
         "result": "ok",
@@ -199,10 +198,11 @@ def join_room():
 @room_api.route("/user_in_room", methods=["POST"])
 @Auth.login_required
 def user_in_room():
-
     data = request.json
     user_id = data['id_user']
     is_in_room = data['is_in_room']
+    code = data['code']
+    print(data)
 
     if is_in_room is 1:
         pass
@@ -213,7 +213,6 @@ def user_in_room():
         "result": "ok"
     }
     return jsonify(response)
-
 
 
 @room_api.route("/test", methods=["GET"])

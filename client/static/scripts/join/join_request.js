@@ -2,7 +2,6 @@ $(document).on('submit', '#join-form', function (e) {
     e.preventDefault();
 
     var code = $('#join').val();
-    var user_id = localStorage.getItem("id_user");
 
     if (code != "" && code.length == 5) {
 
@@ -10,7 +9,7 @@ $(document).on('submit', '#join-form', function (e) {
             method: "POST",
             url: '/join_room',
             contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify({'code': code, 'user_id': user_id}),
+            data: JSON.stringify({'code': code, 'user_id': localStorage.getItem('id_user')}),
             dataType: "json",
             headers: {"auth_token": localStorage.getItem('auth_token')},
             success: function (data) {
