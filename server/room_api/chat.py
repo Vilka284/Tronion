@@ -31,7 +31,7 @@ def get_messages_story(room_id):
         message inner join room on
         room.id_room = message.room_id
         where room.id_room = {int(room_id)}
-        order by date_send desc limit 20;
+        order by date_send desc limit 50;
     """)
 
     response = []

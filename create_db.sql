@@ -18,8 +18,12 @@ CREATE TABLE message ( id_message SERIAL PRIMARY KEY, content VARCHAR(1000), dat
 CREATE TABLE answer ( id_answer SERIAL PRIMARY KEY, note VARCHAR(50), poll_id INTEGER, FOREIGN KEY (poll_id) REFERENCES poll(id_poll) ON DELETE CASCADE
 );
 
+CREATE TABLE status (id_status SERIAL  PRIMARY KEY, status_name VARCHAR(30) NOT NULL);
+
+
 CREATE TABLE answer_has_user ( user_id INTEGER, answer_id INTEGER, FOREIGN KEY (user_id) REFERENCES account(id_user) ON DELETE CASCADE, FOREIGN KEY (answer_id) REFERENCES answer(id_answer) ON DELETE CASCADE
 );
 
-CREATE TABLE room_has_user ( user_id INTEGER, room_id INTEGER, FOREIGN KEY (user_id) REFERENCES account(id_user) ON DELETE CASCADE, FOREIGN KEY (room_id) REFERENCES room(id_room) ON DELETE CASCADE
+CREATE TABLE room_has_user (user_id INTEGER, room_id INTEGER, user_status_id INTEGER, FOREIGN KEY (user_id) REFERENCES account(id_user) ON DELETE CASCADE,
+FOREIGN KEY (room_id) REFERENCES room(id_room) ON DELETE CASCADE, FOREIGN KEY (user_status_id) REFERENCES status(id_status)
 );

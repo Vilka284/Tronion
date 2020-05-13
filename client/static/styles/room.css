@@ -115,7 +115,7 @@ li {
     display: flex;
     flex-direction: column;
     max-width: 100%;
-    background-color: #f1f1f1;
+    background-color: grey;
     padding: 10px;
     margin-bottom: 5px;
     border-radius: 10px;

@@ -46,8 +46,6 @@ class Auth:
 
             if "auth_token" not in request.headers:
                 return {"error": "token is missing"}, 400
-                #return redirect(url_for('login')), 400
-                #render_template('login/login.html')
 
             user_id = None
 
@@ -58,7 +56,6 @@ class Auth:
                 user_id = payload["sub"]
             except jwt.ExpiredSignatureError as e:
                 return {'message': 'token expired'}, 400
-                #return redirect(url_for('login')), 400
             except jwt.InvalidTokenError as e:
                 return {'message': 'Invalid token, please try again'}, 400
 
