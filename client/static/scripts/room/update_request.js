@@ -31,13 +31,24 @@ function update() {
 
 
             //Dynamic create room data elements
-            //names array are for description of tag
-            var names = ['Access code: ', 'Name: ', 'Description: '];
-            for (var room = 0; room < rooms.length; room++) {
-                for (var element = 0; element < 3; element++) {
+            for (let room = 0; room < rooms.length; room++) {
+                for (let element = 0; element < 3; element++) {
                     var innerDiv = document.createElement('div');
-                    var text = names[element];
-                    var info = rooms[room][element];
+                    var info = null;
+                    var code = rooms[room][0];
+                    switch (element) {
+                        case 0:
+                            info = `<a href="/room/${code}"> ${code} </a>`;
+                            break;
+                        case 1:
+                            info = rooms[room][element] + ' : ' + rooms[room][element + 1];
+                            break;
+                        case 2:
+                            info = `<a href="/manage/${code}">Manage this room </a>`;
+                            break;
+                        default:
+                            break;
+                    }
                     innerDiv.id = `room-data-${room}-${element}`;
                     innerDiv.className = 'room-data';
                     innerDiv.style = 'background-color: rgba(255, 255, 255, 0.8);\n' +
@@ -46,7 +57,7 @@ function update() {
                         '  font-size: 20px;\n' +
                         '  text-align: center;';
                     iDiv.appendChild(innerDiv);
-                    innerDiv.innerHTML = text + info;
+                    innerDiv.innerHTML = info;
                 }
             }
 
