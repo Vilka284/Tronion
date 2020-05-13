@@ -22,8 +22,6 @@ $(document).on('submit', '#join-form', function (e) {
                 setTimeout(function redirect() {
                     location.replace(`/room/${room_code}`)
                 }, timeout);
-                //Set user state
-                localStorage.setItem('user_in_room', room_code);
             },
             statusCode: {
                 400: function (data) {

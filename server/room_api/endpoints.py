@@ -164,6 +164,26 @@ def join_room():
     return jsonify(response), 200
 
 
+@room_api.route("/user_in_room", methods=["POST"])
+@Auth.login_required
+def user_in_room():
+
+    data = request.json
+    user_id = data['id_user']
+    is_in_room = data['is_in_room']
+
+    if is_in_room is 1:
+        pass
+    else:
+        pass
+
+    response = {
+        "result": "ok"
+    }
+    return jsonify(response)
+
+
+
 @room_api.route("/test", methods=["GET"])
 @Auth.login_required
 def test():
