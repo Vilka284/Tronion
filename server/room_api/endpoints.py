@@ -64,6 +64,14 @@ def get_user_rooms(id_user):
     return rooms, message
 
 
+def is_join(room_id, user_id):
+    temp = db.select_rows(
+        f"""
+        select * from  room_has_user 
+        where room_id={int(room_id)} and user_id={int(user_id)} 
+        """
+    )
+    return temp
 # @room_api.route('/update_info', methods=["GET", "POST"])
 # def update_info():
 #     return jsonify({"message": "its work!"})
@@ -101,9 +109,10 @@ def create_room():
         # Інакше запутатись можна
         db.insert_data(
             f"""
-                    insert into room_has_user (user_id, room_id) values ( 
+                    insert into room_has_user (user_id, room_id, user_status_id) values ( 
                            '{data['id_user']}', 
-                           '{code}'
+                           '{code}',
+                           1 
                        )"""
         )
         db.commit()
@@ -142,19 +151,42 @@ def update_manage():
 def join_room():
     """
     Join room function
-
-    :return:
     """
 
     data = request.json
-    code = data['code']
+    print(data)
+    code = data["code"]
+    user = data["user_id"]
 
     db_data = db.select_rows(
-        f"select * from room where id_room = {code}"
+        f"select * from room where id_room = {code};"
     )
+
+    # check
+    if is_join(code, user) is None:
+        db.insert_data(
+            # user_status_id: 1 - admin, 2 - moderator, 3 - user
+            f"""
+            insert into room_has_user (user_id, room_id, user_status_id)
+            values ({int(user)}, {int(code)}, 3)
+            """
+        )
+
+
+    # **приклад запиту**
+    # temp = db.select_rows(
+    #     """
+    #     select status.status_name from
+    #     account inner join room_has_user on account.id_user = room_has_user.user_id
+    #     inner join room on room_has_user.room_id = room.id_room
+    #     inner join status on room_has_user.user_status_id = status.id_status
+    #     where account.id_user = {тут маэ бути ід юзера};
+    #     """
+    # )
 
     if db_data is None:
         return jsonify({"error": "There is no room with this code"}), 404
+
 
 
     response = {
