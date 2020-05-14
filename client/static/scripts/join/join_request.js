@@ -9,7 +9,7 @@ $(document).on('submit', '#join-form', function (e) {
             method: "POST",
             url: '/join_room',
             contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify({'code': code}),
+            data: JSON.stringify({'code': code, 'user_id': localStorage.getItem('id_user')}),
             dataType: "json",
             headers: {"auth_token": localStorage.getItem('auth_token')},
             success: function (data) {
@@ -22,8 +22,6 @@ $(document).on('submit', '#join-form', function (e) {
                 setTimeout(function redirect() {
                     location.replace(`/room/${room_code}`)
                 }, timeout);
-                //Set user state
-                localStorage.setItem('user_in_room', room_code);
             },
             statusCode: {
                 400: function (data) {
