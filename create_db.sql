@@ -67,8 +67,8 @@ CREATE TABLE room_has_user
     user_id        INTEGER,
     room_id        INTEGER,
     user_status_id INTEGER,
-    FOREIGN KEY (user_id) REFERENCES account (id_user) ON DELETE CASCADE,
-    FOREIGN KEY (room_id) REFERENCES room (id_room) ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES account (id_user),
+    FOREIGN KEY (room_id) REFERENCES room (id_room),
     FOREIGN KEY (user_status_id) REFERENCES status (id_status)
 );
 

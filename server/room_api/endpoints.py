@@ -11,66 +11,12 @@ from server.user_api.endpoints import validate_json
 from server.auth_jwt import Auth
 from .schemas import *
 
+# Import some functions
+from server.room_api.room_func.get_user_rooms import get_user_rooms
+from server.room_api.room_func.is_join import is_join
+from server.room_api.room_func.get_room import get_room, rand_code
+
 room_api = Blueprint("room_api", __name__)
-
-from .chat import handle_join, send_room_message
-
-
-def get_room(code):
-    """
-    Get room by code
-
-    :param code: room code
-    :return: room
-    """
-    room = db.select_rows(
-        f"select * from room where id_room = {code}"
-    )
-    return room
-
-
-def rand_code():
-    """
-    Generation of five character id
-
-    :return: random code
-    """
-    code = str(randrange(10000, 99999))
-    if get_room(code) is None:
-        return code
-    return rand_code()
-
-
-def get_user_rooms(id_user):
-    """
-    Get rooms by user id
-
-    :param id_user:
-    :return: rooms
-    """
-    rooms = []
-    user_room = db.select_rows(
-        f"select * from room_has_user where user_id = {id_user} and user_status_id = 1"
-    )
-    if user_room is not None:
-        message = 'Here is your rooms:'
-        for room in user_room:
-            rooms.extend(db.select_rows(
-                f"select * from room where id_room = {room[1]}"
-            ))
-    else:
-        message = 'You have no rooms! Do you want to create one?'
-    return rooms, message
-
-
-def is_join(room_id, user_id):
-    temp = db.select_rows(
-        f"""
-        select * from  room_has_user 
-        where room_id={int(room_id)} and user_id={int(user_id)} 
-        """
-    )
-    return temp
 
 
 # @room_api.route('/update_info', methods=["GET", "POST"])
@@ -178,16 +124,6 @@ def join_room():
     if db_data is None:
         return jsonify({"error": "There is no room with this code"}), 404
 
-    # check
-    if is_join(code, user) is None:
-        db.insert_data(
-            # user_status_id: 1 - admin, 2 - user
-            f"""
-                insert into room_has_user (user_id, room_id, user_status_id)
-                values ({int(user)}, {int(code)}, 2)
-                """
-        )
-
     response = {
         "result": "ok",
         "room_data": db_data[0]
@@ -205,9 +141,23 @@ def user_in_room():
     print(data)
 
     if is_in_room is 1:
-        pass
+        db.insert_data(
+            # user_status_id: 1 - admin, 2 - user
+            f"""
+                        insert into room_has_user (user_id, room_id, user_status_id)
+                        values ({int(user_id)}, {int(code)}, 2)
+                        """
+        )
+        db.commit()
     else:
-        pass
+        db.delete_rows(
+            f"""
+                        delete from room_has_user 
+                        where (user_id = {int(user_id)}) and 
+                                (room_id = {int(code)}) and 
+                                (user_status_id = 2)
+            """
+        )
 
     response = {
         "result": "ok"

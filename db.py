@@ -56,3 +56,11 @@ class Databse:
             cur.execute(query)
             cur.close()
 
+
+    def delete_rows(self, query):
+        """
+        SQL query to delete rows from table
+        """
+        with self.conn.cursor() as cur:
+            cur.execute(query)
+            cur.close()
