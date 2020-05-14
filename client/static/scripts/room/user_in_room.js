@@ -1,6 +1,6 @@
 function user_in_room(is_in_room){
 
-    var code = window.location.href.split('/');
+    var code = window.location.href.split('#')[0].split('/');
     code = code[code.length - 1];
     $.ajax({
             method: "POST",

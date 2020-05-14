@@ -9,6 +9,7 @@ def get_user_rooms(id_user):
     :return: rooms
     """
     rooms = []
+    # user_status_id: 1 - admin, 2 - user
     user_room = db.select_rows(
         f"select * from room_has_user where user_id = {id_user} and user_status_id = 1"
     )
@@ -21,5 +22,5 @@ def get_user_rooms(id_user):
             ))
     else:
         message = 'You have no rooms! Do you want to create one?'
-
+    print(rooms)
     return rooms, message

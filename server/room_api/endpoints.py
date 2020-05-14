@@ -11,13 +11,16 @@ from server.user_api.endpoints import validate_json
 from server.auth_jwt import Auth
 from .schemas import *
 
+
 # Import some functions
 from server.room_api.room_func.get_user_rooms import get_user_rooms
 from server.room_api.room_func.is_join import is_join
 from server.room_api.room_func.get_room import get_room, rand_code
+from server.room_api.room_func.get_active_users_in_room import get_active_users_in_room
 
 room_api = Blueprint("room_api", __name__)
 
+from .chat import handle_join, send_room_message
 
 # @room_api.route('/update_info', methods=["GET", "POST"])
 # def update_info():
@@ -125,7 +128,7 @@ def join_room():
         return jsonify({"error": "There is no room with this code"}), 404
 
     response = {
-        "result": "ok",
+        "message": "ok",
         "room_data": db_data[0]
     }
     return jsonify(response), 200
@@ -158,10 +161,28 @@ def user_in_room():
                                 (user_status_id = 2)
             """
         )
+        db.commit()
 
     response = {
-        "result": "ok"
+        "message": "ok"
     }
+    return jsonify(response)
+
+
+@room_api.route("/get_users", methods=["POST"])
+@Auth.login_required
+def get_users():
+
+    data = request.json
+    print('data:', data)
+    admin_id = int(data['id_user'])
+    code = int(data['code'])
+    users = get_active_users_in_room(admin_id, code)
+    response = {
+        "message": "ok",
+        "users": users
+    }
+    print('users:', users)
     return jsonify(response)
 
 

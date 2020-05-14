@@ -70,7 +70,7 @@
     <script>
         window.onbeforeunload = function user_in_room(is_in_room = 0) {
 
-            var code = window.location.href.split('/');
+            var code = window.location.href.split('#')[0].split('/');
             code = code[code.length - 1];
             $.ajax({
                 method: "POST",
@@ -99,7 +99,7 @@
 
         window.onload = function user_in_room(is_in_room = 1) {
 
-            var code = window.location.href.split('/');
+            var code = window.location.href.split('#')[0].split('/');
             code = code[code.length - 1];
             $.ajax({
                 method: "POST",
