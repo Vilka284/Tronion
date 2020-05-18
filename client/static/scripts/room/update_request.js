@@ -21,6 +21,7 @@ function update() {
             iDiv.id = 'message';
             iDiv.className = 'message';
             iDiv.style = 'display: grid;\n' +
+                '  font-family: Coda;\n' +
                 '  grid-column-gap: 30px;\n' +
                 '  grid-template-columns: auto auto auto;\n' +
                 '  background-color: #dfe3f3;\n' +
@@ -53,6 +54,7 @@ function update() {
                     innerDiv.className = 'room-data';
                     innerDiv.style = 'background-color: rgba(255, 255, 255, 0.8);\n' +
                         '  border: 1px solid rgba(0, 0, 0, 0.8);\n' +
+                        '  font-family: Coda;\n' +
                         '  padding: 15px;\n' +
                         '  font-size: 20px;\n' +
                         '  text-align: center;';
@@ -79,7 +81,7 @@ function update() {
 
 }
 
-$(document).on('submit', '#update-form', function(a){
+$(document).on('submit', '#room-form', function(a){
     a.preventDefault();
     update();
 });

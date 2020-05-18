@@ -5,9 +5,11 @@
     <title>Tronion</title>
     <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../styles/manage_room.css">
+    <link rel="stylesheet" type="text/css" href="../styles/registration.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../scripts/room/get_users.js"></script>
+    <script src="../scripts/room/update_room_info.js"></script>
 </head>
 <body>
 <script src="../scripts/onload.js"></script>
@@ -32,6 +34,23 @@
     </a>
 
 </div>
+
+<form id="room-form">
+    <div class="reg">
+        <div class="group">
+            <label for="">Edit room name</label>
+            <input type="text" name="name" placeholder="Name" id="name">
+        </div>
+        <div class="group">
+            <label for="">Edit room description</label>
+            <input type="text" name="description" placeholder="Description" id="description">
+        </div>
+        <div id="msg"></div>
+        <div class="reg-submit">
+            <button type="submit" onclick="confirm('Do you really want to change room data?')">Submit</button>
+        </div>
+    </div>
+</form>
 
 <h2>Users in room: </h2>
 
